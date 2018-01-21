@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/comment_iv_avatar"
+        android:layout_width="@dimen/px_80"
+        android:layout_height="@dimen/px_80"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_20"
+        android:src="@mipmap/man_avatar" />
+
+    <TextView
+        android:id="@+id/comment_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginTop="@dimen/px_30"
+        android:layout_toRightOf="@+id/comment_iv_avatar"
+        android:textColor="#1a77b8"
+        android:textSize="@dimen/px_text_28" />
+
+    <ImageView
+        android:id="@+id/like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_10"
+        android:layout_marginTop="@dimen/px_30"
+        android:layout_toLeftOf="@+id/comment_tv_zan_number"
+        android:src="@drawable/zan_selector" />
+
+    <TextView
+        android:text="0"
+        android:id="@+id/comment_tv_zan_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_30"
+        android:textColor="#b3b3b3"
+        android:textSize="@dimen/px_text_26" />
+
+    <TextView
+        android:id="@+id/comment_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comment_tv_name"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_20"
+        android:layout_toRightOf="@id/comment_iv_avatar"
+        android:lineSpacingExtra="@dimen/px_5"
+        android:textColor="#333"
+        android:textSize="@dimen/px_text_30" />
+
+    <LinearLayout
+        android:paddingBottom="@dimen/px_5"
+        android:orientation="horizontal"
+        android:id="@+id/line_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comment_tv_content"
+        android:layout_toRightOf="@+id/comment_iv_avatar">
+
+        <TextView
+            android:textColor="@color/gray_normal"
+            android:id="@+id/comment_tv_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_15"
+            android:text="2016/9/12   16:02  "
+            android:textSize="@dimen/px_text_26" />
+        <TextView
+            android:textColor="@color/gray_normal"
+            android:id="@+id/comment_tv_huifu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_15"
+            android:text=" 回复"
+            android:textSize="@dimen/px_text_26" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="@color/gray_normal"
+                android:id="@+id/pinglun_jubao"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="举报"
+                android:paddingRight="@dimen/px_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/px_10"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"
+        android:background="@color/gray_pressed"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+</RelativeLayout>

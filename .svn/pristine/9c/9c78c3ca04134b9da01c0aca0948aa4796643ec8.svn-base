@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingBottom="2dp">
+
+    <TextView
+        android:id="@+id/pop_all"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="全部"/>
+    <View
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"/>
+
+    <TextView
+        android:id="@+id/pop_man"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="只看男" />
+    <View
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"/>
+    <TextView
+        android:layout_height="30dp"
+        android:textSize="16sp"
+        android:id="@+id/pop_women"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="只看女" />
+
+</LinearLayout>

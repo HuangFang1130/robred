@@ -1,0 +1,107 @@
+package com.jiahehongye.robred.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jiahehongye.robred.BaseFragment;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.FreshNewsPagerAdapter;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Administrator on 2016/11/30.
+ */
+public class HotFragment extends BaseFragment {
+
+    private TabLayout mFreshTabLayout;
+    private ViewPager mFreshViewpager;
+    private ArrayList<HotFreshNewsFragment> mViewList;
+    private ArrayList<String> mTitleList;
+    private FreshNewsPagerAdapter freshNewsPagerAdapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mMainUi.applyKitKatTranslucency();
+        mMainUi.mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        View view = inflater.from(getActivity()).inflate(R.layout.activity_fresh_news, null);
+        mFreshTabLayout = (TabLayout) view.findViewById(R.id.freshnews_tablayout);
+        mFreshViewpager = (ViewPager) view.findViewById(R.id.freshnews_viewpager);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //添加页卡视图
+        mViewList = new ArrayList<>();
+        for(int i = 0;i<5;i++){
+            HotFreshNewsFragment hotFreshNewsFragment = HotFreshNewsFragment.newInstances(i);
+            mViewList.add(hotFreshNewsFragment);
+        }
+
+        //添加页卡标题
+        mTitleList = new ArrayList<>();
+        mTitleList.add("No:1");
+        mTitleList.add("No:2");
+        mTitleList.add("No:3");
+        mTitleList.add("No:4");
+        mTitleList.add("No:5");
+
+        freshNewsPagerAdapter = new FreshNewsPagerAdapter(mMainUi, mViewList, mTitleList);
+        mFreshViewpager.setAdapter(freshNewsPagerAdapter);
+        //为TabLayout设置ViewPager
+        mFreshTabLayout.setupWithViewPager(mFreshViewpager);
+        //使用ViewPager的适配器
+        mFreshTabLayout.setTabsFromPagerAdapter(freshNewsPagerAdapter);
+
+        mFreshViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                freshNewsPagerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        mFreshTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mFreshViewpager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            mMainUi.applyKitKatTranslucency();
+            mMainUi.mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        }
+    }
+}

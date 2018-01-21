@@ -1,0 +1,87 @@
+package com.jiahehongye.robred;
+
+import okhttp3.MediaType;
+
+/**
+ * Created by huangjunhui on 2016/12/16.10:10
+ */
+public class Constant {
+
+    public static final String RESULT = "result";
+    public static final String SUCCESS = "success";
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    public static final String LOGIN_ID = "login_id";//唯一标示
+    public static final String LOGIN_MEMBERRANK = "login_memberrank";//会员等级
+    public static final String LOGIN_MEMBERTYPE = "login_membertype";//会员类型
+    public static final String LOGIN_MOBILE = "login_mobile";//会员手机
+    public static final String LOGIN_REDINTEGRAL = "login_redintegral";//积分
+    public static final String LOGIN_PASSWORD = "login_password";//用户的密码
+    public static final String URL = "http://192.168.0.172:8080";
+    public static final String OLD_URL = "http://com4.17monkey.com/mobile";
+    // 个人信息
+    public static final String MEMBERINFO = URL + "/mobile/member/member/memberInfo.jhtml";
+    //我的礼物
+    public static final String MY_GIFT = URL + "/mobile/member/member/getGift.jhtml";
+    //获取账户总额
+    public static final String GET_TOTAL = URL + "/mobile/member/member/allAmountInfo.jhtml";
+
+    //获取新闻分类
+    public static final String NEWS_TYPE = URL + "/mobile/infor/getAllCategory.jhtml";
+
+    //获取分类新闻列表
+    public static final String NEWS_LIST = URL + "/mobile/infor/getInforByCategory.jhtml";
+
+    //获取新闻详情
+    public static final String NEWS_DETAIL = URL + "/mobile/infor/getInforContent.jhtml";
+    //所有一级评论
+    public static final String ALL_FIEST_COMMENT =URL+"/mobile/infor/getFirstCommentByInfor.jhtml";
+    //提交评论
+    public static final String UP_COMMENT =URL+"/mobile/infor/submitComment.jhtml";
+
+    //获取资讯一级评论下所有子评论
+    public static final String FIRST_SON =URL+"/mobile/infor/getSonCommentByInfor.jhtml";
+    //点赞
+    public static final String NEWS_LIKE =URL+"/mobile/infor/clickPraise.jhtml";
+
+    //我的评论
+    public static final String MY_COMMENT =URL+"/mobile/infor/getComments.jhtml";
+
+    //钻石账户
+    public static final String DIAMOND_ACCOUNT = URL + "/mobile/member/member/getDiamondPackage.jhtml";
+
+    //登陆
+    public static final String LOGIN_URL = URL + "/mobile/common/memberLogin.jhtml";
+
+    //首页
+    public static final String HOME_PAGE = URL + "/mobile/homePage/getHomePage.jhtml";
+
+    //礼物列表
+    public static final String CHAT_GIFT_LIST = URL + "/mobile/chat/getGiftList.jhtml";
+
+    //发送礼物
+    public static final String CHAT_SEND_GIFT_ = URL + "/mobile/chat/sendGift.jhtml";
+
+    //通讯录
+    public static final String ADDRESS_LIST = URL + "/mobile/chat/getAddressBook.jhtml";
+
+
+    //个人红包列表
+    public static final String GET_PERSON_REDBAGLIST = URL + "/mobile/member/redEnve/sendRedEnveList.jhtml";
+
+    //发红包确定
+    public static final String SEND_RED = URL + "/mobile/member/redEnve/saveSendRedEnve.jhtml";
+
+    //获取账户红包余额以及账户余额
+    public static final String GET_USER_BALANCE = URL + "/mobile/member/member/allAmountInfo.jhtml";
+
+    //支付方式确定请求接口
+    public static final String PAY_RED_WAY_OK = URL + "/mobile/member/redEnve/getSendRedEnveRequestParamsUrl.jhtml";
+
+    //设置支付密码
+    public static final String SETPAYPASSWORD = URL+ "/mobile/member/member/setPayPassword.jhtml";
+    //验证支付密码
+    public static final String CHECKPAYPASSWORD = URL+ "/mobile/member/member/checkPayPassword.jhtml";
+
+}

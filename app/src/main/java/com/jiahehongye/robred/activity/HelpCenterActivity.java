@@ -1,0 +1,79 @@
+package com.jiahehongye.robred.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+
+public class HelpCenterActivity extends BaseActivity implements View.OnClickListener {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        setContentView(R.layout.activity_help_center);
+
+        initView();
+    }
+
+    private RelativeLayout help_back;
+    private LinearLayout mBuyRules;
+    private LinearLayout mSnatchRules;
+    private LinearLayout mEnchashmentRules;
+    private LinearLayout mRobredRules;
+    private LinearLayout mWxServiceRules;
+    private void initView() {
+        help_back = (RelativeLayout) findViewById(R.id.helpcenter_rl_back);
+        mBuyRules = (LinearLayout) findViewById(R.id.helpcenter_ll_buy_rules);
+        mSnatchRules = (LinearLayout) findViewById(R.id.helpcenter_ll_snatch_rules);
+        mEnchashmentRules = (LinearLayout) findViewById(R.id.helpcenter_ll_enchashment_rules);
+        mRobredRules = (LinearLayout) findViewById(R.id.helpcenter_ll_robred_rules);
+        mWxServiceRules = (LinearLayout) findViewById(R.id.helpcenter_ll_wx_service);
+
+        help_back.setOnClickListener(this);
+        mBuyRules.setOnClickListener(this);
+        mSnatchRules.setOnClickListener(this);
+        mEnchashmentRules.setOnClickListener(this);
+        mRobredRules.setOnClickListener(this);
+        mWxServiceRules.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.helpcenter_rl_back:
+                finish();
+                break;
+            case R.id.helpcenter_ll_buy_rules:
+                break;
+            case R.id.helpcenter_ll_snatch_rules:
+                Intent intent = new Intent(getApplicationContext(),WebActivity.class);
+                intent.putExtra("title","拼运气规则");
+                intent.putExtra("URL", Constant.URL+"/mobile/oneyuan/index/rule.jhtml");
+                startActivity(intent);
+
+                break;
+            case R.id.helpcenter_ll_enchashment_rules:
+                Intent intent1 = new Intent(getApplicationContext(),WebActivity.class);
+                intent1.putExtra("title","提现说明");
+                intent1.putExtra("URL", Constant.URL+"/wap/redEnveRulesCharge.jhtml");
+                startActivity(intent1);
+                break;
+            case R.id.helpcenter_ll_robred_rules:
+                Intent intent2 = new Intent(getApplicationContext(),WebActivity.class);
+                intent2.putExtra("title","抢红包规则");
+                intent2.putExtra("URL", Constant.URL+"/wap/redEnveRules.jhtml");
+                startActivity(intent2);
+                break;
+            case R.id.helpcenter_ll_wx_service:
+                break;
+        }
+    }
+}

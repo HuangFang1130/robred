@@ -1,0 +1,717 @@
+package com.jiahehongye.robred.activity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.bean.AddressDetailResult;
+import com.jiahehongye.robred.bean.AttentionResult;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.db.Model;
+import com.jiahehongye.robred.utils.LogUtil;
+import com.jiahehongye.robred.utils.SPUtils;
+import com.jiahehongye.robred.utils.UIUtils;
+import com.jiahehongye.robred.view.BlurTransformation;
+import com.jiahehongye.robred.view.GlideRoundTransform;
+import com.jiahehongye.robred.view.MyGridView;
+import com.jiahehongye.robred.view.MyProgressDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.Serializable;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by huangjunhui on 2016/12/5.13:48
+ */
+public class ContanctDetailActivity extends BaseActivity implements View.OnClickListener{
+
+    private static final int REQUEST_SUCCESS = 2;
+    private static final int REQUEST_ATTENTION = 400;
+    private HobbyGridAdapters adapters;
+
+    public static final String PHOTO_POSITION = "photo_position";
+    private String mobile;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case REQUEST_SUCCESS:
+
+                    String result = (String) msg.obj;
+                    AddressDetailResult addressDetailResult = new Gson().fromJson(result, AddressDetailResult.class);
+                    if (addressDetailResult.getResult().equals("success")) {
+                        parserDate(addressDetailResult);
+                    } else if (addressDetailResult.getResult().equals("fail")) {
+                        String errorMsg = addressDetailResult.getResult();
+                        Toast.makeText(ContanctDetailActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                    } else {
+
+                    }
+                    if(animDialog!=null){
+                        animDialog.dismiss();
+                    }
+                    LogUtil.LogShitou("result: " + result.toString());
+                    break;
+
+                case REQUEST_ATTENTION:
+                    String resultAttention = (String) msg.obj;
+                    AttentionResult attentionResult = new Gson().fromJson(resultAttention, AttentionResult.class);
+                    if (attentionResult.getResult().equals("success")) {
+                        String errorMsg = attentionResult.getData().getMsg();
+                        int fansCount = attentionResult.getData().getFansCount();
+
+                        Toast.makeText(ContanctDetailActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                        if(fansCount==1){
+                            guanzhu_text.setText("已关注");
+                        }else {
+                            guanzhu_text.setText("关注");
+
+                        }
+                    } else if (attentionResult.getResult().equals("fail")) {
+                        String errorMsg = attentionResult.getData().getErrorMsg();
+                        Toast.makeText(ContanctDetailActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                    } else {
+
+                    }
+                    if(animDialog!=null){
+                        animDialog.dismiss();
+                    }
+//                    LogUtil.LogShitou("result: " + result.toString());
+                    break;
+            }
+        }
+    };
+    private ImageView mIvAvatar;
+    private TextView mTvName;
+    private TextView mTvId;
+    private ImageView mIvMenOrWomen;
+    private ImageView mIvLevel;
+//    private TextView mTvPersonalInformation;
+    private TextView mTvPersonalInSignature;
+    private TextView mTvPersonalInLove;
+//    private TextView mTvPersonalInNote;
+    private String id;
+    private String nickName;
+    private String userPhoto;
+    private LinearLayout photos_layout;
+    private TextView photos_title;
+    private ImageView one;
+    private ImageView two;
+    private ImageView three;
+    private ImageView four;
+    private int mScreenWidth;
+    private int imgWidth;
+    private AddressDetailResult.DataBean data;
+    private MyProgressDialog animDialog;
+    private Call call;
+    private TextView xingzuo_ziliao;
+    private TextView qingganstate_ziliao;
+    private TextView zhiye_ziliao;
+    private TextView xueli_ziliao;
+    private TextView jiaoyoumudi_ziliao;
+    private TextView mTvMore;
+    private MyGridView hobby_Grid;
+    private ImageView isguanzhu;
+    private String[] chrstr = new String[0];
+    private LinearLayout guanzhu_layout;
+    private TextView address_detail_gexing;
+    private RelativeLayout four_bg;
+    private TextView more_img;
+    private ImageView gaosi;
+    private LinearLayout bottom_layout;
+    private TextView guanzhu_text;
+    //    private View mViewDetailPhoto;
+
+    /**
+     * 解析数据，并设置
+     * @param addressDetailResult
+     */
+    private void parserDate(AddressDetailResult addressDetailResult) {
+        data = addressDetailResult.getData();
+        //昵称
+        nickName = data.getNickName();
+        //用户头像
+        userPhoto = data.getUserPhoto();
+
+
+        Glide.with(UIUtils.getContext())
+                .load(userPhoto)
+                .crossFade(1000)
+                .bitmapTransform(new BlurTransformation(UIUtils.getContext(),80)) // “23”：设置模糊度(在0.0到25.0之间)，默认”25";"4":图片缩放比例,默认“1”。
+                .into(gaosi);
+
+        int fansCount = data.getFansCount();
+        if(fansCount==1){
+            guanzhu_text.setText("已关注");
+        }else {
+            guanzhu_text.setText("关注");
+
+        }
+
+        Model model = new Model(UIUtils.getContext());
+        EaseUser user = new EaseUser(mobile);//保存对方的数据到本地数据库
+        user.setAvatar(userPhoto);//对方的头像
+        user.setNick(nickName);//对方的昵称
+        model.saveContact(user);
+        //用户的id
+        id = data.getId();
+        String gender = data.getGender();//性别
+        String userLevel = data.getUserLevel();//用户的级别
+
+        String constellation = data.getConstellation();//星座
+        String maritalStatus = data.getMaritalStatus();//婚姻状态
+        String profession = data.getProfession();//职业
+        String schoolRecord = data.getSchoolRecord();//学历
+        String datingPurpose = data.getDatingPurpose();//交友目的
+
+        String personalDescription = data.getPersonalDescription();//个人说明
+        String hobbies = data.getHobbies();//个人爱好
+
+        chrstr = hobbies.split(",");
+        if (hobbies.equals("")){
+
+            hobby_Grid.setVisibility(View.INVISIBLE);
+            adapters.notifyDataSetChanged();
+
+        }else {
+            hobby_Grid.setVisibility(View.VISIBLE);
+            adapters.notifyDataSetChanged();
+        }
+
+        if(userPhoto==null||userPhoto.equals("")){
+            Glide.with(UIUtils.getContext()).load(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(mIvAvatar);
+        }else {
+            Glide.with(UIUtils.getContext()).load(userPhoto)
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic)
+                    .transform(new GlideRoundTransform(UIUtils.getContext())).into(mIvAvatar);
+        }
+
+        if(gender.equals("0")){//保密
+            mIvMenOrWomen.setVisibility(View.GONE);
+        }else if(gender.equals("1")){//男
+            Glide.with(UIUtils.getContext()).load(R.mipmap.men).into(mIvMenOrWomen);
+            mIvMenOrWomen.setBackgroundResource(R.drawable.nan_yuan);
+        }else if(gender.equals("2")){ //女
+            Glide.with(UIUtils.getContext()).load(R.mipmap.women).into(mIvMenOrWomen);
+            mIvMenOrWomen.setBackgroundResource(R.drawable.nv_yuan);
+        }
+        if (userLevel.equals("1")) {//普通
+            Glide.with(UIUtils.getContext()).load(R.mipmap.general).into(mIvLevel);
+        } else if (userLevel.equals("2")) {//白领
+            Glide.with(UIUtils.getContext()).load(R.mipmap.white_collar).into(mIvLevel);
+        } else if (userLevel.equals("3")) {//金领
+            Glide.with(UIUtils.getContext()).load(R.mipmap.gold_collar).into(mIvLevel);
+        } else if (userLevel.equals("4")) {//老板
+            Glide.with(UIUtils.getContext()).load(R.mipmap.boss).into(mIvLevel);
+        } else if (userLevel.equals("5")) {//土豪
+            Glide.with(UIUtils.getContext()).load(R.mipmap.loacl_lord).into(mIvLevel);
+        } else {
+            Glide.with(UIUtils.getContext()).load(R.mipmap.general).into(mIvLevel);
+        }
+
+        if (data.getResList().size()>4){
+            int size = data.getResList().size();
+            int more = size - 4;
+            more_img.setText("+"+more);
+        }else {
+            more_img.setVisibility(View.GONE);
+        }
+
+        if (data.getResList().size()==0){
+            photos_layout.setVisibility(View.GONE);
+//            mViewDetailPhoto.setVisibility(View.GONE);
+        }else if (data.getResList().size()==1){
+            AddressDetailResult.PhotosBean photosBean = data.getResList().get(0);
+            Glide.with(UIUtils.getContext()).load(photosBean.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic)
+                    .transform(new GlideRoundTransform(UIUtils.getContext())).into(one);
+            two.setVisibility(View.GONE);
+            three.setVisibility(View.GONE);
+            four.setVisibility(View.GONE);
+        }else if (data.getResList().size()==2){
+            AddressDetailResult.PhotosBean photosBean = data.getResList().get(0);
+            AddressDetailResult.PhotosBean photosBean2 = data.getResList().get(1);
+            Glide.with(UIUtils.getContext()).load(photosBean.getPhoto())
+
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(one);
+            Glide.with(UIUtils.getContext()).load(photosBean2.getPhoto())
+
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(two);
+            three.setVisibility(View.GONE);
+            four.setVisibility(View.GONE);
+        }else if (data.getResList().size()==3){
+            AddressDetailResult.PhotosBean photosBean = data.getResList().get(0);
+            AddressDetailResult.PhotosBean photosBean2 = data.getResList().get(1);
+            AddressDetailResult.PhotosBean photosBean3 = data.getResList().get(2);
+            Glide.with(UIUtils.getContext()).load(photosBean.getPhoto())
+
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(one);
+            Glide.with(UIUtils.getContext()).load(photosBean2.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(two);
+            Glide.with(UIUtils.getContext()).load(photosBean3.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(three);
+        }else if (data.getResList().size()==4){
+            AddressDetailResult.PhotosBean photosBean = data.getResList().get(0);
+            AddressDetailResult.PhotosBean photosBean2 = data.getResList().get(1);
+            AddressDetailResult.PhotosBean photosBean3 = data.getResList().get(2);
+            AddressDetailResult.PhotosBean photosBean4 = data.getResList().get(3);
+            Glide.with(UIUtils.getContext()).load(photosBean.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(one);
+            Glide.with(UIUtils.getContext()).load(photosBean2.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(two);
+            Glide.with(UIUtils.getContext()).load(photosBean3.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(three);
+            Glide.with(UIUtils.getContext()).load(photosBean4.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(four);
+        }else {
+            AddressDetailResult.PhotosBean photosBean = data.getResList().get(0);
+            AddressDetailResult.PhotosBean photosBean2 = data.getResList().get(1);
+            AddressDetailResult.PhotosBean photosBean3 = data.getResList().get(2);
+            AddressDetailResult.PhotosBean photosBean4 = data.getResList().get(3);
+            Glide.with(UIUtils.getContext()).load(photosBean.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(one);
+            Glide.with(UIUtils.getContext()).load(photosBean2.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(two);
+            Glide.with(UIUtils.getContext()).load(photosBean3.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(three);
+            Glide.with(UIUtils.getContext()).load(photosBean4.getPhoto())
+                    .error(R.mipmap.headsq_pic)
+                    .placeholder(R.mipmap.headsq_pic).transform(new GlideRoundTransform(UIUtils.getContext())).into(four);
+        }
+
+        address_detail_gexing.setText(personalDescription);
+
+
+        mTvName.setText(nickName);
+        mTvId.setText(personalDescription);
+
+        xingzuo_ziliao = (TextView) findViewById(R.id.xingzuo_ziliao);
+        qingganstate_ziliao = (TextView) findViewById(R.id.qingganstate_ziliao);
+        zhiye_ziliao = (TextView) findViewById(R.id.zhiye_ziliao);
+        xueli_ziliao = (TextView) findViewById(R.id.xueli_ziliao);
+        jiaoyoumudi_ziliao = (TextView) findViewById(R.id.jiaoyoumudi_ziliao);
+
+
+        xingzuo_ziliao.setText(constellation);
+        qingganstate_ziliao.setText(maritalStatus);
+        zhiye_ziliao.setText(profession);
+        xueli_ziliao.setText(schoolRecord);
+        jiaoyoumudi_ziliao.setText(datingPurpose);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mobile = getIntent().getStringExtra("mobile");//对方的手机号
+        setContentView(R.layout.activity_contanct_detail);
+        initView();
+        String loginmobile = (String) SPUtils.get(UIUtils.getContext(), Constant.LOGIN_MOBILE, "");
+        if (loginmobile.equals(mobile)){
+            guanzhu_layout.setVisibility(View.GONE);
+            bottom_layout.setVisibility(View.GONE);
+        }
+        adapters = new HobbyGridAdapters();
+        hobby_Grid.setAdapter(adapters);
+        hobby_Grid.setFocusable(false);
+
+        //设置图片的宽高
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mScreenWidth = metrics.widthPixels;
+        imgWidth = (mScreenWidth-100)/4;
+
+        ViewGroup.LayoutParams para;
+        para = one.getLayoutParams();
+
+        para.width = imgWidth;
+        para.height = imgWidth;
+
+//        LinearLayout.LayoutParams ff=new LinearLayout.LayoutParams(imgWidth, imgWidth);
+        one.setLayoutParams(para);
+        two.setLayoutParams(para);
+        three.setLayoutParams(para);
+
+
+
+        RelativeLayout.LayoutParams para4;
+        para4 = (RelativeLayout.LayoutParams) four.getLayoutParams();
+
+        para4.width = imgWidth;
+        para4.height = imgWidth;
+        four.setLayoutParams(para4);
+//        four_bg.setLayoutParams(ff);
+
+        requestDate(mobile);
+
+        mIvAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UIUtils.getContext(),LookHeadImageActivity.class).putExtra("url",userPhoto));
+            }
+        });
+
+        one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),PhotoviewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("infoList", (Serializable) data.getResList());
+                intent.putExtra(PHOTO_POSITION,0);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        two.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),PhotoviewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("infoList", (Serializable) data.getResList());
+                intent.putExtra(PHOTO_POSITION,1);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        three.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),PhotoviewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("infoList", (Serializable) data.getResList());
+                intent.putExtra(PHOTO_POSITION,2);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        four.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),PhotoviewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("infoList", (Serializable) data.getResList());
+                intent.putExtra(PHOTO_POSITION,3);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void requestDate(String mobile) {
+        showMyDialog();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cookieJar(new CookieJarImpl(new PersistentCookieStore(this)))
+                .build();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("memberMobile", mobile);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.ADDRESS_DETAIL)
+                .post(body)
+                .build();
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                UIUtils.runInMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ContanctDetailActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                        if(animDialog!=null){
+                            animDialog.dismiss();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                LogUtil.LogShitou("联系人详情",result.toString());
+
+                Message msg = handler.obtainMessage();
+                msg.what = REQUEST_SUCCESS;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+    }
+
+    /**
+     * 显示对话框
+     */
+    public void showMyDialog() {
+        animDialog = new MyProgressDialog(ContanctDetailActivity.this, "玩命加载中...", R.drawable.loading);
+        animDialog.show();
+        animDialog.setCancelable(true);
+        animDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (call.isExecuted()) {
+                    call.cancel();
+                }
+            }
+        });
+    }
+    private void initView() {
+        guanzhu_text = (TextView) findViewById(R.id.guanzhu_text);
+        bottom_layout = (LinearLayout) findViewById(R.id.bottom_layout);
+        gaosi = (ImageView) findViewById(R.id.gaosiImg);
+        more_img = (TextView) findViewById(R.id.more_img);
+        four_bg = (RelativeLayout) findViewById(R.id.four_bg);
+        address_detail_gexing = (TextView) findViewById(R.id.address_detail_gexing);
+        hobby_Grid = (MyGridView) findViewById(R.id.hobby_Grid);
+        one = (ImageView) findViewById(R.id.address_detail_iv_one);
+        two = (ImageView) findViewById(R.id.address_detail_iv_two);
+        three = (ImageView) findViewById(R.id.address_detail_iv_three);
+        four = (ImageView) findViewById(R.id.address_detail_iv_four);
+
+        photos_layout = (LinearLayout) findViewById(R.id.photos_layout);
+        ImageView mIvBack = (ImageView) findViewById(R.id.contanct_detail_iv_back_row);
+        mTvMore = (TextView) findViewById(R.id.contanct_detail_more_title);//关注
+        guanzhu_layout = (LinearLayout) findViewById(R.id.guanzhu_layout);
+//        RadioGroup mRgRoot = (RadioGroup) findViewById(R.id.contanct_detail_rg_root);
+        LinearLayout mRbChat = (LinearLayout) findViewById(R.id.contanct_detail_rb_chat);
+        LinearLayout mRbSendGift = (LinearLayout)findViewById(R.id.contanct_detail_rb_gift);
+        LinearLayout mRbReport = (LinearLayout)findViewById(R.id.contanct_detail_rb_report);
+        String currentMobile= (String) SPUtils.get(UIUtils.getContext(), Constant.LOGIN_MOBILE, "");
+
+//        if(mobile.equals(currentMobile)){
+//            mRgRoot.setVisibility(View.GONE);
+//        }else {
+//            mRgRoot.setVisibility(View.VISIBLE);
+//        }
+
+        xingzuo_ziliao = (TextView) findViewById(R.id.xingzuo_ziliao);
+        qingganstate_ziliao = (TextView) findViewById(R.id.qingganstate_ziliao);
+        zhiye_ziliao = (TextView) findViewById(R.id.zhiye_ziliao);
+        xueli_ziliao = (TextView) findViewById(R.id.xueli_ziliao);
+        jiaoyoumudi_ziliao = (TextView) findViewById(R.id.jiaoyoumudi_ziliao);
+
+
+
+        mIvAvatar = (ImageView) findViewById(R.id.address_detail_avatar);
+        mTvName = (TextView) findViewById(R.id.address_detail_name);
+        mTvId = (TextView) findViewById(R.id.address_detail_id);
+        mIvMenOrWomen = (ImageView) findViewById(R.id.address_detail_menorwomen);
+        mIvLevel = (ImageView) findViewById(R.id.address_detail_level);
+//        mTvPersonalInformation = (TextView) findViewById(R.id.address_detail_personal_information);
+//        mTvPersonalInSignature = (TextView) findViewById(R.id.address_detail_personal_signature);
+//        mTvPersonalInNote = (TextView) findViewById(R.id.address_detail_personal_note);
+//        mViewDetailPhoto = findViewById(R.id.address_detail_view);
+
+        mIvBack.setOnClickListener(this);
+        mTvMore.setOnClickListener(this);
+//        mRgRoot.setOnCheckedChangeListener(this);
+        mRbChat.setOnClickListener(this);
+        mRbSendGift.setOnClickListener(this);
+        mRbReport.setOnClickListener(this);
+        guanzhu_layout.setOnClickListener(this);
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.contanct_detail_iv_back_row:
+                finish();
+                break;
+            case R.id.contanct_detail_more_title:
+
+
+                Intent reportIntent = new Intent(ContanctDetailActivity.this,ContanctReportActivty.class);
+                reportIntent.putExtra("type",2+"");
+                reportIntent.putExtra("id",id);
+                startActivity(reportIntent);
+                break;
+
+            /**
+             * 聊天需要传的参数：
+             * 1，聊天类型
+             * 2，聊天人对象的id
+             * 3,对方用户的头像
+             * 4，对方用户的昵称
+             *
+             * 5，自己的头像
+             * 6，自己的昵称
+             *
+             *   //发送的
+             args.putString("Avatar",user.getAvatar());//好友的
+             args.putString("Name","李建涛");
+
+             args.putString("Avatar2",user.getAvatar());//本人的
+             args.putString("Name2","黄军辉");
+             *
+             */
+            case R.id.contanct_detail_rb_chat://热点
+                Intent chatIntent1 = new Intent(ContanctDetailActivity.this,ChatActivity.class);
+                chatIntent1.putExtra("Name",nickName);
+                chatIntent1.putExtra("Avatar",userPhoto);
+                chatIntent1.putExtra(EaseConstant.EXTRA_CHAT_TYPE,1);
+                chatIntent1.putExtra(EaseConstant.EXTRA_USER_ID,mobile);
+                startActivity(chatIntent1);
+                break;
+            case R.id.contanct_detail_rb_gift://礼物
+                Intent chatIntent2 = new Intent(ContanctDetailActivity.this,ChatActivity.class);
+                chatIntent2.putExtra("Name",nickName);
+                chatIntent2.putExtra("Avatar",userPhoto);
+                chatIntent2.putExtra(EaseConstant.EXTRA_CHAT_TYPE,1);
+                chatIntent2.putExtra(EaseConstant.EXTRA_USER_ID,mobile);
+                chatIntent2.putExtra("gift","true");
+                startActivity(chatIntent2);
+                break;
+            case R.id.contanct_detail_rb_report://举报
+                requestAttention();
+
+
+                break;
+        }
+
+    }
+
+    private void requestAttention() {//ATTENTION_URL
+        showMyDialog();
+        LogUtil.LogShitou("联系人id:",id);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cookieJar(new CookieJarImpl(new PersistentCookieStore(this)))
+                .build();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("coverMemId", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.ATTENTION_URL)
+                .post(body)
+                .build();
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                UIUtils.runInMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ContanctDetailActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                        if(animDialog!=null){
+                            animDialog.dismiss();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                LogUtil.LogShitou("请求关注接口返回数据：",result.toString());
+                Message msg = handler.obtainMessage();
+                msg.what = REQUEST_ATTENTION;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+
+
+    }
+
+
+    private class HobbyGridAdapters extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            if (chrstr.length>0){
+
+                return chrstr.length;
+            }else {
+                return 0;
+            }
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.text_hobby, null);
+                holder = new ViewHolder();
+                holder.src = (TextView) convertView.findViewById(R.id.text_src);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.src.setText(chrstr[position]);
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            TextView src;
+        }
+    }
+
+}

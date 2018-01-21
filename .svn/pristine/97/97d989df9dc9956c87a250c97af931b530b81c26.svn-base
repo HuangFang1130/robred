@@ -1,0 +1,39 @@
+package com.jiahehongye.robred.activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+public class FeedBackActivity extends BaseActivity {
+
+    private RelativeLayout feed_back;
+    private RelativeLayout feed_up;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.white);
+        setContentView(R.layout.activity_feed_back);
+
+        feed_back = (RelativeLayout) findViewById(R.id.feed_back);
+        feed_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        feed_up = (RelativeLayout) findViewById(R.id.feed_up);
+        feed_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(FeedBackActivity.this, "tijiao", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+}

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\project\robred\robred\chat\assets"/><source path="E:\project\robred\robred\chat\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\project\robred\robred\chat\build-types\debug\assets"/></dataSet></merger>

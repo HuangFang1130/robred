@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px_160">
+
+    <ImageView
+        android:id="@+id/vadkds"
+        android:layout_width="@dimen/px_130"
+        android:layout_height="@dimen/px_130"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/px_20"
+        android:src="@mipmap/grab_avatar" />
+
+    <TextView
+
+        android:id="@+id/home_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_25"
+        android:layout_toRightOf="@+id/vadkds"
+        android:text="@string/home_username"
+        android:textColor="@color/home_user_name"
+        android:textSize="@dimen/px_text_26" />
+
+    <ImageView
+        android:id="@+id/home_tv_level"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/px_28"
+        android:layout_below="@+id/home_tv_name"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_10"
+        android:layout_toRightOf="@+id/vadkds"
+        android:background="#faa9a4"
+        android:paddingLeft="@dimen/px_10"
+        android:paddingRight="@dimen/px_10"
+        android:src="@mipmap/women" />
+
+    <ImageView
+        android:id="@+id/home_tv_levelfdafd"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/px_28"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/home_tv_name"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="@dimen/px_10"
+        android:layout_toRightOf="@+id/home_tv_level"
+        android:src="@mipmap/general" />
+
+    <TextView
+        android:id="@+id/home_tvdfsafda_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_tv_level"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_15"
+        android:layout_toRightOf="@+id/vadkds"
+        android:maxLines="1"
+        android:text="天凉好个秋。。。。"
+        android:textColor="#808080"
+        android:textSize="@dimen/px_text_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/px_20"
+        android:text="10.5km"
+        android:textColor="#b3b3b3"
+        android:textSize="@dimen/px_text_24" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_toRightOf="@+id/vadkds"
+        android:background="#ccc" />
+</RelativeLayout>

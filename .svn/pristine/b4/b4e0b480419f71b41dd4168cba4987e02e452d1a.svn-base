@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:background="@mipmap/login_bg"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/center_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_240"
+
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.jiahehongye.robred.view.CircleImageView
+
+            android:id="@+id/thrid_headpic"
+            android:layout_width="@dimen/px_180"
+            android:layout_height="@dimen/px_180"
+           />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:text="亲爱的用户:"
+                android:textSize="@dimen/px_text_24" />
+            <TextView
+                android:id="@+id/thrid_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:text="昵称"
+                android:textSize="@dimen/px_text_24" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:alpha="0.5"
+            android:text="为了给您更好的服务，请关联一个抢红包账号"
+            android:textSize="@dimen/px_text_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_10"
+            android:alpha="0.5"
+            android:text="还没有抢红包账号？"
+            android:textSize="@dimen/px_text_24" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/thrid_register"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/selector_shape_register"
+        android:text="快速注册"
+        android:textSize="@dimen/px_text_28"
+        android:textColor="@color/WHITE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_10"
+            android:alpha="0.5"
+            android:text="已有抢红包账号？"
+            android:textSize="@dimen/px_text_24" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/thrid_relevance"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_8"
+        android:background="@drawable/selector_shape_register"
+        android:text="立即关联"
+        android:textSize="@dimen/px_text_28"
+        android:textColor="@color/WHITE" />
+
+</LinearLayout>

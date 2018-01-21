@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/red_detail_fl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:background="@color/home_white_color"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/red_detail_back_row"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_20"
+            android:scaleType="center"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/grabred_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="红包详情"
+            android:textColor="#000"
+            android:textSize="@dimen/px_text_34" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:layout_alignParentBottom="true"
+            android:background="#ccc" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:id="@+id/red_detail_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fdklsajfkldaklf">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
+
+    <!--<TextView-->
+    <!--android:id="@+id/fdasfdaf"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="@dimen/px_60"-->
+    <!--android:layout_below="@+id/red_detail_tv_luck"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="@dimen/px_40"-->
+    <!--android:background="#ffde24"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingLeft="@dimen/px_40"-->
+
+    <!--android:paddingRight="@dimen/px_40"-->
+    <!--android:text="点击拆红包"-->
+    <!--android:textColor="#491012"-->
+    <!--android:textSize="@dimen/px_text_28" />-->

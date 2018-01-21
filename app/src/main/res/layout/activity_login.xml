@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/login_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/login_iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_20"
+            android:scaleType="center"
+            android:src="@mipmap/close" />
+
+        <TextView
+            android:id="@+id/login_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="@string/login_title"
+            android:textColor="@color/login_tv_title"
+            android:textSize="@dimen/px_text_32" />
+    </RelativeLayout>
+
+
+    <EditText
+
+        android:id="@+id/login_et_phone"
+        style="@style/login_input_textview"
+        android:layout_marginTop="@dimen/px_80"
+        android:drawableLeft="@mipmap/login_phone"
+        android:hint="@string/login_notify_phone"
+        android:text=""
+        android:inputType="text" />
+
+
+    <EditText
+
+        android:id="@+id/login_et_password"
+        style="@style/login_input_textview"
+        android:layout_marginTop="@dimen/px_28"
+        android:drawableLeft="@mipmap/longin_password"
+        android:hint="@string/login_notify_password"
+        android:text=""
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/login_bt_login"
+        style="@style/login_button"
+        android:layout_marginTop="@dimen/px_80"
+        android:text="@string/login_title"
+        android:textSize="@dimen/px_text_32" />
+
+    <Button
+        android:id="@+id/login_bt_register"
+        style="@style/register_button"
+        android:layout_marginTop="@dimen/px_28"
+        android:text="@string/register_title"
+        android:textSize="@dimen/px_text_32" />
+
+    <TextView
+        android:id="@+id/login_tv_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/px_80"
+        android:text="@string/login_forget_password" />
+
+    <View
+        android:layout_width="@dimen/px_100"
+        android:layout_height="@dimen/px_1"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/view_background" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:layout_marginBottom="@dimen/px_20"
+                android:id="@+id/login_rl_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="@dimen/px_200"
+                android:layout_height="@dimen/px_1"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_28"
+                android:layout_toRightOf="@+id/login_tv_thired"
+                android:background="@color/view_background" />
+
+            <TextView
+                android:id="@+id/login_tv_thired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:text="@string/login_third_login"
+                android:textColor="@color/login_tv_thired"
+                android:textSize="@dimen/px_text_24" />
+
+            <View
+                android:layout_width="@dimen/px_200"
+                android:layout_height="@dimen/px_1"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/px_28"
+                android:layout_toLeftOf="@+id/login_tv_thired"
+                android:background="@color/view_background" />
+            </RelativeLayout>
+            <RadioGroup
+                android:id="@+id/login_rg_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_rl_view"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/login_rb_tencent"
+                    style="@style/login_Bottom_Tab_Style"
+                    android:drawableTop="@mipmap/tencent"
+                    android:text="@string/login_third_qq" />
+
+                <RadioButton
+                    android:id="@+id/login_rb_wechat"
+                    style="@style/login_Bottom_Tab_Style"
+                    android:drawableTop="@mipmap/wechat"
+                    android:text="@string/login_third_wechat" />
+
+                <RadioButton
+                    android:id="@+id/login_rb_weibo"
+                    style="@style/login_Bottom_Tab_Style"
+                    android:drawableTop="@mipmap/weibo"
+                    android:text="@string/login_third_weibo" />
+
+            </RadioGroup>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

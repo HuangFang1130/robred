@@ -1,0 +1,202 @@
+package com.jiahehongye.robred.adapter;
+
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.BillionairesActivity;
+import com.jiahehongye.robred.bean.BillionairesResult;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.utils.UIUtils;
+import com.jiahehongye.robred.view.GlideCircleTransform;
+
+import java.util.List;
+
+/**
+ * Created by huangjunhui on 2016/12/2.
+ */
+public class BillionairesRecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
+    //item类型
+    public static final int ITEM_TYPE_HEADER = 0;
+    public static final int ITEM_TYPE_CONTENT = 1;
+    public static final int ITEM_TYPE_FOOT = 2;
+    private List<BillionairesResult.DataBean.RichLBean> fatherArrayList;
+    private BillionairesActivity mBillionActivity;
+    private View footView;
+    private MyItemClickListener mItemClickListener;
+    private String personalRank;//个人排名
+
+
+    public BillionairesRecycleAdapter(BillionairesActivity billionairesActivity, List<BillionairesResult.DataBean.RichLBean> fathreArrayList) {
+        this.mBillionActivity = billionairesActivity;
+        this.fatherArrayList = fathreArrayList;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case ITEM_TYPE_HEADER:
+                View headView = LayoutInflater.from(mBillionActivity).inflate(R.layout.billionaires_head, null);
+                return new BillionHeadViewHolder(headView);
+            case ITEM_TYPE_CONTENT:
+                View contentView = LayoutInflater.from(mBillionActivity).inflate(R.layout.billionaires_content, null);
+                return new BillionContentViewHolder(contentView, mItemClickListener);
+            case ITEM_TYPE_FOOT:
+                footView = LayoutInflater.from(mBillionActivity).inflate(R.layout.fragment_home_foot, null);
+                return new BillionFootViewHolder(footView);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        if (fatherArrayList != null && fatherArrayList.size() >= 3) {
+            if (holder instanceof BillionHeadViewHolder) {
+                BillionHeadViewHolder heardHolder = (BillionHeadViewHolder) holder;
+                int i = Integer.parseInt(personalRank);
+                if(i>=999){
+                    personalRank = 999+"";
+                }
+                heardHolder.mTvPersonalAwarder.setText(personalRank);
+
+                Glide.with(UIUtils.getContext()).load(fatherArrayList.get(0).getUserPhoto()).transform(new GlideCircleTransform(UIUtils.getContext())).into(heardHolder.mIvPaiMingOne);
+                Glide.with(UIUtils.getContext()).load(fatherArrayList.get(1).getUserPhoto()).transform(new GlideCircleTransform(UIUtils.getContext())).into(heardHolder.mIvPaiMingTwo);
+                Glide.with(UIUtils.getContext()).load(fatherArrayList.get(2).getUserPhoto()).transform(new GlideCircleTransform(UIUtils.getContext())).into(heardHolder.mIvPaiMingThree);
+
+                heardHolder.mTvPaiMingOne.setText(fatherArrayList.get(0).getNickName());
+                heardHolder.mTvPaiMingTwo.setText(fatherArrayList.get(1).getNickName());
+                heardHolder.mTvPaiMingThree.setText(fatherArrayList.get(2).getNickName());
+
+                heardHolder.mTvPaiMingMoneyOne.setText("￥ "+fatherArrayList.get(0).getSendMoney());
+                heardHolder.mTvPaiMingMoneyTwo.setText("￥ "+fatherArrayList.get(1).getSendMoney());
+                heardHolder.mTvPaiMingMoneyThree.setText("￥ "+fatherArrayList.get(2).getSendMoney());
+
+            }
+
+            if (holder instanceof BillionContentViewHolder) {
+                BillionContentViewHolder contentHolder = (BillionContentViewHolder) holder;
+
+                Glide.with(UIUtils.getContext()).load(fatherArrayList.get(position + 2).getUserPhoto()).transform(new GlideCircleTransform(UIUtils.getContext())).into(contentHolder.mIvContentAvatar);
+                contentHolder.mTvContentNumber.setText(position + 3 + "");
+                contentHolder.mTvContentName.setText(fatherArrayList.get(position + 2).getNickName());
+                contentHolder.mTvContentMoney.setText("￥ "+fatherArrayList.get(position + 2).getSendMoney());
+            }
+        }
+
+    }
+
+
+    public void setOnItemClickListener(MyItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    @Override
+    public int getItemCount() {
+        return fatherArrayList.size() - 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (getItemCount() == 1) {
+            return ITEM_TYPE_HEADER;
+        }
+        if (position == 0) {
+            return ITEM_TYPE_HEADER;
+        } else if (position == fatherArrayList.size() -2) {
+            return ITEM_TYPE_FOOT;
+        } else {
+            return ITEM_TYPE_CONTENT;
+        }
+    }
+
+    public void showFootView() {
+        if (footView != null) {
+            footView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hintFootView() {
+        if (footView != null) {
+            footView.setVisibility(View.GONE);
+        }
+    }
+
+    public void setHeardDate(String personalRank) {
+        this.personalRank = personalRank;
+    }
+
+    class BillionHeadViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView mTvPersonalAwarder;
+        private TextView mTvPaiMingOne;
+        private TextView mTvPaiMingMoneyOne;
+        private ImageView mIvPaiMingTwo;
+        private TextView mTvPaiMingTwo;
+        private TextView mTvPaiMingMoneyTwo;
+        private ImageView mIvPaiMingThree;
+        private TextView mTvPaiMingThree;
+        private ImageView mIvPaiMingOne;
+        private TextView mTvPaiMingMoneyThree;
+
+        public BillionHeadViewHolder(View itemView) {
+            super(itemView);
+
+            //我的排名
+            mTvPersonalAwarder = (TextView) itemView.findViewById(R.id.billion_my_awarded);
+            mIvPaiMingOne = (ImageView) itemView.findViewById(R.id.billion_paiming_avatar_one);
+            mTvPaiMingOne = (TextView) itemView.findViewById(R.id.billion_one_user_name);
+            mTvPaiMingMoneyOne = (TextView) itemView.findViewById(R.id.billion_paiming_money_one);
+
+            mIvPaiMingTwo = (ImageView) itemView.findViewById(R.id.billion_paiming_avatar_two);
+            mTvPaiMingTwo = (TextView) itemView.findViewById(R.id.billion_two_user_name);
+            mTvPaiMingMoneyTwo = (TextView) itemView.findViewById(R.id.billion_paiming_money_two);
+
+            mIvPaiMingThree = (ImageView) itemView.findViewById(R.id.billion_paiming_avatar_three);
+            mTvPaiMingThree = (TextView) itemView.findViewById(R.id.billion_three_user_name);
+            mTvPaiMingMoneyThree = (TextView) itemView.findViewById(R.id.billion_paiming_money_three);
+
+        }
+    }
+
+    class BillionContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyItemClickListener itemClickListener;
+        private TextView mTvContentNumber;
+        private ImageView mIvContentAvatar;
+        private TextView mTvContentName;
+        private TextView mTvContentMoney;
+
+        public BillionContentViewHolder(View itemView, MyItemClickListener mItemClickListener) {
+            super(itemView);
+            this.itemClickListener = mItemClickListener;
+            itemView.setOnClickListener(this);
+            //序号
+            mTvContentNumber = (TextView) itemView.findViewById(R.id.billion_tv_number);
+            mTvContentName = (TextView) itemView.findViewById(R.id.billion_tv_name);
+            mTvContentMoney = (TextView) itemView.findViewById(R.id.billion_tv_money);
+            mIvContentAvatar = (ImageView) itemView.findViewById(R.id.billion_iv_avatar);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(v, getPosition());
+            }
+        }
+    }
+
+    class BillionFootViewHolder extends RecyclerView.ViewHolder {
+
+        public BillionFootViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+}

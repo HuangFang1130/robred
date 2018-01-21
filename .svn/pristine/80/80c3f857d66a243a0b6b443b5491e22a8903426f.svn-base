@@ -1,0 +1,868 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_oneyuan_product_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="14">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+            android:id="@+id/ptrlv_oneyuan_salesdetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/WHITE"
+                    android:orientation="vertical">
+
+                    <!-- 产品图片 -->
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/WHITE"
+                        android:visibility="visible">
+
+                        <com.jiahehongye.robred.view.MySquareImageView
+                            android:id="@+id/iv_oneyuan_salesdetail_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY" />
+
+                    </RelativeLayout>
+
+                    <!-- 产品期号，产品名称 -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/WHITE"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_salesdetail_nostage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/selector_shape_register"
+                            android:text="第-期"
+                            android:textColor="@color/WHITE"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_salesdetail_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="-"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- 产品介绍 -->
+
+                    <TextView
+                        android:id="@+id/tv_oneyuan_salesdetail_comments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/WHITE"
+                        android:text="-"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:id="@+id/salesdetail_fengexian"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/huise" />
+
+                    <!-- 获奖公布 -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F2F2F2"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp">
+
+                        <LinearLayout
+                            android:id="@+id/ll_oneyuan_salesdetail_finish_other"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#ff2448"
+                                android:padding="10dp">
+
+                                <!-- 获奖者头像 -->
+
+                                <com.jiahehongye.robred.view.CircleImageView
+                                    android:id="@+id/iv_oneyuan_salesdetail_winner"
+                                    android:layout_width="55dp"
+                                    android:layout_height="55dp"
+                                    android:src="@mipmap/winnerhead_3x" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@+id/iv_oneyuan_salesdetail_winner"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="获奖者："
+                                            android:textColor="@color/WHITE"
+                                            android:textSize="12sp" />
+
+                                        <!-- 获奖者姓名 -->
+
+                                        <TextView
+                                            android:id="@+id/tv_oneyuan_salesdetail_winnername"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="-"
+                                            android:textColor="@color/WHITE"
+                                            android:textSize="12sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="揭晓时间："
+                                            android:textColor="@color/WHITE"
+                                            android:textSize="12sp" />
+
+                                        <!-- 获奖者购买时间 -->
+
+                                        <TextView
+                                            android:id="@+id/tv_oneyuan_salesdetail_winnertime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="-"
+                                            android:textColor="@color/WHITE"
+                                            android:textSize="12sp" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <!-- 查看计算详情 -->
+
+                                <TextView
+                                    android:id="@+id/tv_oneyuan_salesdetail_gotoMath"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentRight="true"
+                                    android:gravity="center"
+                                    android:text="查看计算详情"
+                                    android:textColor="@color/WHITE"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#E62041"
+                                android:gravity="center"
+                                android:padding="8dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="幸运号："
+                                        android:textColor="@color/WHITE"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_oneyuan_salesdetail_luckynum"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="-"
+                                        android:textColor="@color/WHITE"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_oneyuan_salesdetail_finish_self"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- 未参与跑拍宝 -->
+
+                            <TextView
+                                android:id="@+id/tv_oneyuan_salesdetail_nojoin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/WHITE"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="您没有参与本次拍宝哦！"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+
+                            <!-- 参与了拍宝 -->
+
+                            <LinearLayout
+                                android:id="@+id/ll_oneyuan_salesdetail_yesjoin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/WHITE"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:text="您参与了本次拍宝"
+                                    android:textColor="#999999"
+                                    android:textSize="12sp" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="兑奖号："
+                                        android:textColor="#999999"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_oneyuan_salesdetail_myluckycode"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="-"
+                                        android:textColor="#ff2448"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- 产品进度条 -->
+
+                    <LinearLayout
+                        android:id="@+id/ll_oneyuan_salesdetail_progressbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_oneyuan_salesdetail_baifenbi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/zongxurenci"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/full_round_3x" />
+
+                            <TextView
+                                android:id="@+id/tv_oneyuan_salesdetail_totalpeople"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="-"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/zongxurenci"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:text="总需人次"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center">
+
+                            <com.jiahehongye.robred.view.RoundProgressBar
+                                android:id="@+id/progressbar_percentage"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android_custom:roundColor="@color/huise"
+                                android_custom:roundProgressColor="#ff2448"
+                                android_custom:roundWidth="3dp" />
+
+                            <TextView
+                                android:id="@+id/tv_oneyuan_salesdetail_noone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="0%"
+                                android:textColor="@color/RED"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/shengyurenci"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/full_round_3x" />
+
+                            <TextView
+                                android:id="@+id/tv_oneyuan_salesdetail_surpluspeople"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="-"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/shengyurenci"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:text="剩余人次"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/WHITE"
+                    android:orientation="vertical">
+
+                    <!-- 往期揭晓 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_oneyuan_salesdetail_before"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@color/WHITE">
+
+                        <View
+                            android:id="@+id/view_red_wangqi"
+                            android:layout_width="2dp"
+                            android:layout_height="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:background="#ff2448" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@id/view_red_wangqi"
+                            android:text="往期揭晓"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@mipmap/goto_3x" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/huise" />
+
+                    <!-- 第一期正在进行 -->
+
+                    <LinearLayout
+                        android:id="@+id/ll_oneyuan_salesdetail_no1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:background="@color/WHITE"
+                            android:src="@mipmap/no_first_3x" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="第一期正在进行中哦~"
+                            android:textColor="#b3b3b3"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- 上一期中奖晒单 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_oneyuan_salesdetail_ago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/iv_oneyuan_salesdetail_lasticon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@mipmap/icon_wangqi_3x" />
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_salesdetail_lastissue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/iv_oneyuan_salesdetail_lasticon"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="第-期"
+                            android:textColor="#333333"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_salesdetail_lasttime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="17:43:42"
+                            android:textColor="#999999"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_salesdetail_lastday"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/iv_oneyuan_salesdetail_lasticon"
+                            android:layout_marginTop="3dp"
+                            android:gravity="center"
+                            android:text="-"
+                            android:textColor="#999999"
+                            android:textSize="10sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@id/tv_oneyuan_salesdetail_lastissue"
+                            android:layout_below="@id/tv_oneyuan_salesdetail_lastissue"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/lastwinner"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="获奖者："
+                                    android:textColor="#666666"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_oneyuan_salesdetail_lastname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-"
+                                    android:textColor="#666666"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="幸运号码："
+                                    android:textColor="#666666"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_oneyuan_salesdetail_lastcode"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-"
+                                    android:textColor="#ff2448"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="获奖感言："
+                                    android:textColor="#666666"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_oneyuan_salesdetail_lastmessage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    android:text="-"
+                                    android:textColor="#666666"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <com.jiahehongye.robred.view.MySquareImageView
+                                    android:id="@+id/iv_oneyuan_salesdetail_lastwinnerimage1"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:scaleType="fitXY" />
+
+                                <com.jiahehongye.robred.view.MySquareImageView
+                                    android:id="@+id/iv_oneyuan_salesdetail_lastwinnerimage2"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:scaleType="fitXY" />
+
+                                <com.jiahehongye.robred.view.MySquareImageView
+                                    android:id="@+id/iv_oneyuan_salesdetail_lastwinnerimage3"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!-- 图文详情，参与记录 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/WHITE"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_oneyuan_salesdetail_introduction"
+                        android:layout_width="0dp"
+                        android:layout_height="40sp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tuwenxiangqing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图文详情"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:id="@+id/view_introduction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="2dp"
+                            android:layout_alignLeft="@id/tuwenxiangqing"
+                            android:layout_alignRight="@id/tuwenxiangqing"
+                            android:layout_below="@id/tuwenxiangqing"
+                            android:layout_marginTop="1dp"
+                            android:background="#ff2448" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="15sp"
+                        android:layout_gravity="center_vertical"
+                        android:background="#b3b3b3" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_oneyuan_salesdetail_participationlist"
+                        android:layout_width="0dp"
+                        android:layout_height="40sp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/canyujilu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="参与记录"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:id="@+id/view_participationlist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="2dp"
+                            android:layout_alignLeft="@id/canyujilu"
+                            android:layout_alignRight="@id/canyujilu"
+                            android:layout_below="@id/canyujilu"
+                            android:layout_marginTop="1dp"
+                            android:background="#ff2448"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <WebView
+                    android:id="@+id/web_oneyuan_salesdetail_xiangqing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
+
+                <com.jiahehongye.robred.view.MyListView
+                    android:id="@+id/lv_oneyuan_salsedetail_joinlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.jiahehongye.robred.view.MyListView>
+
+                <com.jiahehongye.robred.view.MySquareLinearLayout
+                    android:id="@+id/ll_noone_join"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@mipmap/nulllist_3x" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="还没有人参与哦~"
+                        android:textColor="#b3b3b3"
+                        android:textSize="15sp" />
+                </com.jiahehongye.robred.view.MySquareLinearLayout>
+            </LinearLayout>
+        </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+        <ImageView
+            android:id="@+id/iv_oneyuan_salesdetail_goback"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/goback_3x" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/WHITE">
+
+        <!-- 没购买 -->
+
+        <LinearLayout
+            android:id="@+id/ll_oneyuan_salesdetail_nobuy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="小计："
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_salesdetail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥1.00"
+                    android:textColor="@color/RED"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_oneyuan_salesdetail_submit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/RED"
+                android:text="立即参与"
+                android:textColor="@color/WHITE"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- 已购买 -->
+
+        <LinearLayout
+            android:id="@+id/ll_oneyuan_salesdetail_yesbuy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="您已参与本次拍宝，看看别的吧！"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_oneyuan_salesdetail_seemore"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/RED"
+                android:text="查看更多"
+                android:textColor="@color/WHITE"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- 已开奖 -->
+
+        <LinearLayout
+            android:id="@+id/ll_oneyuan_salesdetail_gotonext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_havenext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="更多商品火热进行中......"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_oneyuan_salesdetail_gotonext"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/RED"
+                android:text="立即前往"
+                android:textColor="@color/WHITE"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

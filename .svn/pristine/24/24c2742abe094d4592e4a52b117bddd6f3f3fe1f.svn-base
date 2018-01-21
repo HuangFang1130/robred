@@ -1,0 +1,213 @@
+package com.jiahehongye.robred.activity;
+
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class EnchashmentActivity extends BaseActivity implements View.OnClickListener {
+
+    private RelativeLayout mBack;
+    private String canuse;
+    private EditText zhanghao,name,num;
+    private double canusenum;
+    private TextView red_tixian;
+    private Call call;
+    private PersistentCookieStore persistentCookieStore;
+    private static final int GET_ALL = 0000;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GET_ALL:
+                    String s = (String) msg.obj;
+                    try {
+                        JSONObject object = new JSONObject(s);
+                        if (object.getString("result").equals("success")) {
+                            Toast.makeText(EnchashmentActivity.this, "您的提现申请已提交审核", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
+            }
+        }
+    };
+    private String type;
+    private String strurl;
+    private TextView tixian_shuoming;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        setContentView(R.layout.activity_enchashment);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            canuse = bundle.getString("canuse");
+            canusenum = Double.parseDouble(canuse);
+            type = bundle.getString("type");
+            if (type.equals("1")){
+                strurl = Constant.RED_TIXIAN;
+            }else if (type.equals("2")){
+                strurl = Constant.CHONGZHI_TIXIAN;
+            }
+
+        }
+        tixian_shuoming = (TextView) findViewById(R.id.tixian_shuoming);
+        red_tixian = (TextView) findViewById(R.id.red_tixian);
+        zhanghao = (EditText) findViewById(R.id.zfb_zhanghao);
+        name = (EditText) findViewById(R.id.zfb_name);
+        num = (EditText) findViewById(R.id.red_tixiannum);
+        num.setHint("可提现金额"+canuse+"元");
+
+
+        num.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(num.getText().toString())){
+                    double getnum = Double.parseDouble(num.getText().toString());
+                    if(getnum>canusenum){
+                        Toast.makeText(EnchashmentActivity.this, "超出可提现金额！", Toast.LENGTH_SHORT).show();
+                        red_tixian.setOnClickListener(null);
+                    }else {
+                        red_tixian.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getdata();
+                            }
+                        });
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
+        mBack = (RelativeLayout) findViewById(R.id.enchashment_rl_back);
+        mBack.setOnClickListener(this);
+
+
+        tixian_shuoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),WebActivity.class);
+                intent.putExtra("title","提现说明");
+                intent.putExtra("URL",Constant.URL+"/wap/redEnveRulesCharge.jhtml");
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.enchashment_rl_back:
+                finish();
+                break;
+        }
+    }
+
+
+    private void getdata() {
+
+        if (TextUtils.isEmpty(zhanghao.getText().toString())){
+            Toast.makeText(EnchashmentActivity.this, "请输入支付宝账号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(name.getText().toString())){
+            Toast.makeText(EnchashmentActivity.this, "请输入真实姓名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(EnchashmentActivity.this);
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("cardType","3");
+            jsonObject.put("bankCard", zhanghao.getText().toString());
+            jsonObject.put("realName",name.getText().toString());
+            jsonObject.put("accountMoney",num.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(strurl)
+                .post(body)
+                .build();
+
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                EnchashmentActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(EnchashmentActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+
+                Message msg = handler.obtainMessage();
+                msg.what = GET_ALL;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+
+    }
+}

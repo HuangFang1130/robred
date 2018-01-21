@@ -1,0 +1,9 @@
+package com.jiahehongye.robred.wxapi;
+
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
+
+/**
+ * Created by jiahe007 on 2016/12/29 0029.
+ */
+public class WXEntryActivity extends WXCallbackActivity {
+}

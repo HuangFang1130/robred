@@ -1,0 +1,202 @@
+package com.jiahehongye.robred.fragment;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.GrabPersonalRecycleAdapter;
+import com.jiahehongye.robred.bean.GrabPersonalListResult;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.utils.LogUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by huangjunhui on 2016/12/2.13:57
+ */
+public class GrabPersonalFragment extends Fragment {
+
+    private List<GrabPersonalListResult.DataBean.SendRedEnveListBean> grabRedList;
+    private PersistentCookieStore persistentCookieStore;
+    private Call call;
+    private static final int GRAB_PERSONAL_LIST = 200;
+    private SwipeRefreshLayout mPersonalSwiperefresh;
+    private RecyclerView mPersonalRecycleview;
+    private LinearLayoutManager linearLayoutManager;
+    private List<GrabPersonalListResult.DataBean.SendRedEnveListBean> fatherArrayList;
+    private GrabPersonalRecycleAdapter mGrabPersonalRecycleAdapter;
+    private String pageNumber = "1";
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GRAB_PERSONAL_LIST:
+                    String result = (String) msg.obj;
+                    GrabPersonalListResult grabPersonalListResult = new Gson().fromJson(result, GrabPersonalListResult.class);
+                    if (grabPersonalListResult.getResult().equals("success")) {
+                        grabRedList = grabPersonalListResult.getData().getSendRedEnveList();
+                        fatherArrayList.addAll(grabRedList);
+                    } else if (grabPersonalListResult.getResult().equals("fail")) {
+                        Toast.makeText(getActivity(), "解析失败", Toast.LENGTH_SHORT).show();
+                    }
+                    mGrabPersonalRecycleAdapter.hintFootView();
+                    mGrabPersonalRecycleAdapter.notifyDataSetChanged();
+                    LogUtil.LogShitou("GrabPersonalFragment",result.toString());
+                    break;
+            }
+        }
+    };
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_grabred_personal,null);
+        mPersonalSwiperefresh = (SwipeRefreshLayout) view.findViewById(R.id.grabred_personal_swiperefresh);
+        mPersonalRecycleview = (RecyclerView) view.findViewById(R.id.grabred_personal_recycleview);
+
+        return view;
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        pageNumber = "1";
+        requestDate(pageNumber);
+        mPersonalSwiperefresh.setColorSchemeResources(R.color.holo_blue_bright,R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        mPersonalSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPersonalSwiperefresh.setRefreshing(false);
+            }
+        });
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mPersonalRecycleview.setLayoutManager(linearLayoutManager);
+
+        fatherArrayList = new ArrayList<>();
+
+        mGrabPersonalRecycleAdapter = new GrabPersonalRecycleAdapter(getActivity(), fatherArrayList);
+        mPersonalRecycleview.setAdapter(mGrabPersonalRecycleAdapter);
+
+        //滑动的监听
+        mPersonalRecycleview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if(linearLayoutManager.getItemCount()<=1){
+                        return;
+                    }
+                    if(lastVisiblePosition >= linearLayoutManager.getItemCount()-1){
+                        int i = Integer.parseInt(pageNumber);
+                        i++;
+                        pageNumber = i+"";
+                        requestDate(pageNumber);
+
+                    }
+
+                }
+            }
+        });
+
+        mGrabPersonalRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+//                Intent intent = new Intent(getActivity(),RedPersonalDetailActivity.class);
+//
+//                startActivity(intent);
+
+
+
+            }
+        });
+
+
+    }
+
+    /**
+     * 获取个人红包列表
+     * @param pageNumber 页数
+     */
+    private void requestDate(String pageNumber) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(getActivity());
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("pageSize", "20");
+            jsonObject.put("pageNumber", pageNumber);
+            jsonObject.put("type", "0");//0，个人红包  1：商家红包
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.GRAB_PERSONURL)
+                .post(body)
+                .build();
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
+                        if(mGrabPersonalRecycleAdapter!=null){
+                            mGrabPersonalRecycleAdapter.hintFootView();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Message msg = handler.obtainMessage();
+                msg.what = GRAB_PERSONAL_LIST;
+                msg.obj = result;
+                handler.sendMessage(msg);
+
+            }
+        });
+    }
+
+
+}

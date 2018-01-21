@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.jiahehongye.robred.activity.ChangePswActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/changepsw_rl_back"
+            android:layout_width="@dimen/px_80"
+            android:layout_height="@dimen/px_80">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_30"
+                android:src="@mipmap/row_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改密码"
+            android:textColor="@color/black"
+            android:textSize="@dimen/px_text_34" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_32"
+        android:background="@drawable/changephone_bg_et"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/changepsw_et_old"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_88"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="请输入当前密码"
+            android:inputType="text"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/px_20"
+            android:paddingRight="@dimen/px_20"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:background="@color/basebackground" />
+
+        <EditText
+            android:id="@+id/changepsw_et_new"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_88"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="请输入新密码"
+            android:inputType="text"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/px_20"
+            android:paddingRight="@dimen/px_20"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:background="@color/basebackground" />
+
+        <EditText
+            android:id="@+id/changepsw_et_renew"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_88"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="请再次输入新密码"
+            android:inputType="text"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/px_20"
+            android:paddingRight="@dimen/px_20"
+            android:textSize="@dimen/px_text_28" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/changepsw_rl_forgetpsw"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_88"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_20"
+        android:background="@drawable/changephone_bg_et"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/px_20"
+            android:paddingRight="@dimen/px_20"
+            android:text="忘记密码"
+            android:textColor="@color/black"
+            android:textSize="@dimen/px_text_28" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/px_20"
+            android:paddingRight="@dimen/px_20"
+            android:src="@mipmap/right_row" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/changepsw_btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_88"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_128"
+        android:background="@drawable/changephone_bg_btn"
+        android:text="确认修改"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_text_30" />
+</LinearLayout>

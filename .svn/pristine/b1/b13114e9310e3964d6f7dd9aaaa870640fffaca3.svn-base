@@ -1,0 +1,190 @@
+package com.jiahehongye.robred.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.PraiseRecycleAdapter;
+import com.jiahehongye.robred.bean.SonCommentsBean;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by huangjunhui on 2016/12/6.17:17
+ *
+ * 点赞的总数
+ */
+public class PraiseAllActivity extends BaseActivity {
+    private ArrayList<String> fatherArrayList;
+    private ArrayList<String> arrayList;
+    private RecyclerView mPraiseRecycleview;
+    private LinearLayoutManager linearLayoutManager;
+    private PraiseRecycleAdapter praiseRecycleAdapter;
+    private String id;
+    private static final int GET_ALL = 0000;
+    private Call call;
+    private ArrayList<SonCommentsBean> bean = new ArrayList<>();
+    private PersistentCookieStore persistentCookieStore;
+    private int PAGENUMBER = 1;
+    private String NUMBERS = "20";
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GET_ALL:
+                    String s = (String) msg.obj;
+                    try {
+                        JSONObject object = new JSONObject(s);
+                        if (object.getString("result").equals("success")) {
+                            String data = object.getString("data");
+                            ArrayList<SonCommentsBean> a = (ArrayList<SonCommentsBean>) JSON.parseArray(data,SonCommentsBean.class);
+                            bean.addAll(a);
+                            praiseRecycleAdapter.notifyDataSetChanged();
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+            }
+        }
+    };
+    private ImageView application_iv_back;
+    private TextView application_tv_title;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+//        mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        setContentView(R.layout.activity_praise);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            id = bundle.getString("id");
+        }
+        application_tv_title = (TextView) findViewById(R.id.application_tv_title);
+        application_iv_back = (ImageView) findViewById(R.id.application_iv_back);
+        mPraiseRecycleview = (RecyclerView) findViewById(R.id.praise_recycleview);
+
+        application_tv_title.setText("赞过的人");
+        linearLayoutManager = new LinearLayoutManager(this);
+        mPraiseRecycleview.setLayoutManager(linearLayoutManager);
+
+
+        getdata();
+        praiseRecycleAdapter = new PraiseRecycleAdapter(this, bean);
+        mPraiseRecycleview.setAdapter(praiseRecycleAdapter);
+        praiseRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+//              Toast.makeText(PraiseAllActivity.this, postion + "", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PraiseAllActivity.this, ContanctDetailActivity.class);
+                intent.putExtra("mobile",bean.get(postion).getMobile());
+                startActivity(intent);
+            }
+        });
+
+        //滑动的监听
+        mPraiseRecycleview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisiblePosition >= linearLayoutManager.getItemCount()-1){
+                        PAGENUMBER = PAGENUMBER+1;
+                        getdata();
+                    }
+
+                }
+            }
+        });
+        application_iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    private void getdata() {
+
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(PraiseAllActivity.this);
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("id",id);
+            jsonObject.put("pageNumber", PAGENUMBER + "");
+            jsonObject.put("pageSize", NUMBERS);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.ALL_ZAN)
+                .post(body)
+                .build();
+
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                PraiseAllActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(PraiseAllActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+
+                Message msg = handler.obtainMessage();
+                msg.what = GET_ALL;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+
+    }
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jiahehongye.robred.activity.PinglunActivity">
+
+
+    <LinearLayout
+        android:background="#F0F0F0"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_above="@+id/hehehe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/cancel_pinglun"
+            android:layout_marginLeft="@dimen/px_30"
+            android:paddingTop="@dimen/px_20"
+            android:paddingBottom="@dimen/px_20"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/px_28"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginRight="@dimen/px_30"
+            android:gravity="right|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/fasong"
+                android:textColor="@color/black"
+                android:paddingTop="@dimen/px_20"
+                android:paddingBottom="@dimen/px_20"
+                android:textSize="@dimen/px_28"
+                android:text="发送"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/hehehe"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_300">
+
+        <EditText
+            android:id="@+id/pinglunedit"
+            android:padding="@dimen/px_5"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_normal"
+            android:textSize="@dimen/px_28"
+            android:hint="请输入回复内容"
+            android:gravity="top"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/px_20"
+            android:layout_marginRight="@dimen/px_30"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

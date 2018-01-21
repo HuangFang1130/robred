@@ -1,0 +1,285 @@
+package com.jiahehongye.robred.fragment;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.jiahehongye.robred.BaseFragment;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.BillionairesActivity;
+import com.jiahehongye.robred.activity.GrabRedActivity;
+import com.jiahehongye.robred.activity.SendRedActivity;
+import com.jiahehongye.robred.adapter.HomeRecycleAdapter;
+import com.jiahehongye.robred.bean.HomeFragmentResult;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.interfaces.MyHeadViewClickListener;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.view.MyProgressDialog;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by Administrator on 2016/11/30.
+ * <p/>
+ * 首页
+ */
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
+
+    private RecyclerView mRecycleViewHome;
+    private HomeRecycleAdapter mHomeRecycleAdapter;
+    private GridLayoutManager gridLayoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private static final int GET_HOME = 0000;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GET_HOME:
+                    parserDate(msg.obj);
+
+                    break;
+            }
+        }
+    };
+
+
+    //从服务器拿到数据后设置adapter
+    private void parserDate(Object obj) {
+        animDialog.dismiss();
+        String homefragment = (String) obj;
+
+        try {
+            homeFragmentResult = new Gson().fromJson(homefragment, HomeFragmentResult.class);
+        } catch (Exception e) {
+
+        }
+//        mHomeRecycleAdapter.notifyDataSetChanged();
+        gridLayoutManager = new GridLayoutManager(mMainUi, 2);
+        gridLayoutManager.setSpanSizeLookup(new HeaderSpanSizeLookup(gridLayoutManager));//设置脚布局占用多少个条目
+        mRecycleViewHome.setLayoutManager(gridLayoutManager);
+        mRecycleViewHome.setItemAnimator(new DefaultItemAnimator());
+
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+        mHomeRecycleAdapter = new HomeRecycleAdapter(mMainUi, homeFragmentResult);
+        mRecycleViewHome.setAdapter(mHomeRecycleAdapter);
+//        mHomeRecycleAdapter.notifyDataSetChanged();
+
+
+        //滑动的监听
+        mRecycleViewHome.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int lastVisiblePosition = gridLayoutManager.findLastVisibleItemPosition();
+                    if (lastVisiblePosition >= gridLayoutManager.getItemCount() - 1) {
+//                        fatherArrayList.addAll(arrayList);
+                        mHomeRecycleAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
+
+
+        mHomeRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Toast.makeText(getActivity(), postion + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mHomeRecycleAdapter.setOnHeadClickListener(new MyHeadViewClickListener() {
+            @Override
+            public void onHeadClick(View view) {
+                switch (view.getId()) {
+                    case R.id.home_rl_personal_information://个人中心
+
+                        break;
+                    case R.id.home_rb_grab://抢红包
+                        Intent intent = new Intent(mMainUi, GrabRedActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.home_rb_send://发红包
+                        Intent sendIntent = new Intent(mMainUi, SendRedActivity.class);
+                        startActivity(sendIntent);
+                        break;
+                    case R.id.home_rb_find_favorable://找优惠
+                        Toast.makeText(getActivity(), "点击了找优惠" + "", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.home_rb_spell_luck://拼手气
+                        Toast.makeText(getActivity(), "点击了拼手气" + "", Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
+            }
+        });
+    }
+
+    private HomeFragmentResult homeFragmentResult;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mMainUi.applyKitKatTranslucency();
+        mMainUi.mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        View view = LayoutInflater.from(mMainUi).inflate(R.layout.fragment_home, null);
+        TextView hTvRich = (TextView) view.findViewById(R.id.home_head_rich);
+        mRecycleViewHome = (RecyclerView) view.findViewById(R.id.home_recycleview);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_swiperefreshlayout);
+        hTvRich.setOnClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+
+
+    }
+
+    /**
+     * 获取首页信息
+     */
+    private PersistentCookieStore persistentCookieStore;
+    private MyProgressDialog animDialog;
+    private Call call;
+
+    private void initData() {
+
+        showMyDialog();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(getActivity());
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.HOME_PAGE)
+                .post(body)
+                .build();
+
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
+                        animDialog.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Log.e("首页返回：", result);
+
+                Message msg = handler.obtainMessage();
+                msg.what = GET_HOME;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.home_head_rich:
+                Intent intent = new Intent(mMainUi, BillionairesActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+
+    class HeaderSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+
+        private final GridLayoutManager layoutManager;
+
+        public HeaderSpanSizeLookup(GridLayoutManager layoutManager) {
+            this.layoutManager = layoutManager;
+        }
+
+        //在这里设置头布局和脚布局占用的条数
+        @Override
+        public int getSpanSize(int position) {
+            position = position == 0 ? layoutManager.getSpanCount() : 1;
+            //position= position==fatherArrayList.size()+1?layoutManager.getSpanCount() : 1;
+            return position;
+        }
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            mMainUi.applyKitKatTranslucency();
+            mMainUi.mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        }
+    }
+
+    /**
+     * 显示对话框
+     */
+    public void showMyDialog() {
+        animDialog = new MyProgressDialog(getActivity(), "玩命加载中...", R.drawable.loading);
+        animDialog.show();
+        animDialog.setCancelable(true);
+        animDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (call.isExecuted()) {
+                    call.cancel();
+                }
+            }
+        });
+    }
+}

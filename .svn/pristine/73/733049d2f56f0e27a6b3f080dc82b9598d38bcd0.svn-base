@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/chat_pop_rl"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_400">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/chat_pop_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_400">
+
+        </android.support.v4.view.ViewPager>
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="@dimen/px_20"-->
+            <!--android:gravity="center">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/home_ll_container"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
+
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/home_iv_redpoint"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/home_white_point" />-->
+        <!--</RelativeLayout>-->
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_below="@+id/chat_pop_rl"
+        android:background="#F2F2F2"
+        android:layout_width="match_parent"
+        android:layout_height="98px">
+        <TextView
+            android:id="@+id/chat_pop_tv_masonry"
+            android:text="钻石：5"
+            android:textColor="#333333"
+            android:textSize="30px"
+            android:paddingLeft="30px"
+            android:drawablePadding="20px"
+            android:layout_gravity="center_vertical"
+            android:drawableRight="@drawable/masonry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/chat_pop_recharge"
+            android:text="去充值>>"
+            android:textColor="#B3B3B3"
+            android:textSize="26px"
+            android:layout_marginLeft="28px"
+            android:drawablePadding="20px"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/chat_pop_btn_send"
+            android:textColor="#fff"
+            android:textSize="30px"
+            android:layout_marginRight="30px"
+            android:background="@drawable/comment_textview_shape"
+            android:text="发送"
+            android:layout_gravity="center_vertical"
+            android:layout_width="130px"
+            android:layout_height="56px" />
+    </LinearLayout>
+</RelativeLayout>

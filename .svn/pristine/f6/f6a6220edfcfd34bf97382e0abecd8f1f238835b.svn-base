@@ -1,0 +1,31 @@
+package com.jiahehongye.robred.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+public class AboutUsActivity extends BaseActivity {
+
+    private RelativeLayout mBack;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        setContentView(R.layout.activity_about_us);
+
+        mBack = (RelativeLayout) findViewById(R.id.aboutus_rl_back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+    }
+}

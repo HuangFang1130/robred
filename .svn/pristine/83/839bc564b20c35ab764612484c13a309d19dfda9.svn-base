@@ -1,0 +1,293 @@
+package com.jiahehongye.robred.fragment;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.baidu.platform.comapi.map.A;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.DiamondAccountActivity;
+import com.jiahehongye.robred.activity.PayRedActivity;
+import com.jiahehongye.robred.bean.DiamondBean;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.view.MyProgressDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by qianduan on 2016/12/9.
+ */
+public class BuyDiamondFragment extends Fragment {
+
+    private View view;
+    private ListView PayDiamond;
+    private ArrayList<DiamondBean> diamondBeen = new ArrayList<>();
+
+    private static final int GET_ALL = 0000;
+    private static final int BUY = 1000;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case GET_ALL:
+                    animDialog.dismiss();
+                    String login = (String) msg.obj;
+                    try {
+                        JSONObject object = new JSONObject(login);
+                        if (object.getString("result").equals("success")){
+                            JSONObject data = new JSONObject(object.getString("data"));
+
+
+                            String diamondPackage = data.getString("diamondPackage");
+                            diamondBeen = (ArrayList<DiamondBean>) JSON.parseArray(diamondPackage,DiamondBean.class);
+                            Adapter adapter = new Adapter();
+                            PayDiamond.setAdapter(adapter);
+                        }else {
+                            Toast.makeText(getActivity(), "请检查您的网络", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                case BUY:
+                    animDialog.dismiss();
+                    String buy = (String) msg.obj;
+                    try {
+                        JSONObject object = new JSONObject(buy);
+                        if (object.getString("result").equals("success")){
+                            JSONObject data = new JSONObject(object.getString("data"));
+
+
+                            String diamondDetailId = data.getString("diamondDetailId");
+                            Intent intent = new Intent(getActivity(), PayRedActivity.class);
+                            intent.putExtra("redCode", diamondDetailId);
+                            intent.putExtra("type","3");
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(getActivity(), "请检查您的网络", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.buy_diamond, container, false);
+        PayDiamond = (ListView) view.findViewById(R.id.PayDiamond);
+        getdata();
+
+        return view;
+    }
+
+    private class Adapter extends BaseAdapter{
+
+
+        @Override
+        public int getCount() {
+            return diamondBeen.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.diamond_item, null);
+                holder = new ViewHolder();
+                holder.item_diamondnumber = (TextView) convertView.findViewById(R.id.item_diamondnumber);
+                holder.diamond_price= (Button) convertView.findViewById(R.id.diamond_price);
+                holder.buy_diamondall = (LinearLayout) convertView.findViewById(R.id.buy_diamondall);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.item_diamondnumber.setText(diamondBeen.get(position).getDiamond());
+            holder.diamond_price.setText("¥"+diamondBeen.get(position).getPrice());
+            holder.buy_diamondall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buy(diamondBeen.get(position).getPrice(),diamondBeen.get(position).getId());
+                }
+            });
+
+
+            return convertView;
+        }
+        class ViewHolder {
+            TextView item_diamondnumber;
+            Button diamond_price;
+            LinearLayout buy_diamondall;
+        }
+    }
+
+
+    private void buy(String rechargeAmount,String diamondPackageId) {
+
+        showMyDialog();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(getActivity());
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("rechargeAmount",rechargeAmount);
+            jsonObject.put("diamondPackageId",diamondPackageId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.BUY_DIAMOND)
+                .post(body)
+                .build();
+
+
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                        animDialog.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+
+                Message msg = handler.obtainMessage();
+                msg.what = BUY;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+
+    }
+
+    /**
+     *
+     */
+    private PersistentCookieStore persistentCookieStore;
+    private MyProgressDialog animDialog;
+    private Call call;
+    private void getdata() {
+
+        showMyDialog();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(getActivity());
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.DIAMOND_ACCOUNT)
+                .post(body)
+                .build();
+
+
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                        animDialog.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+
+                Message msg = handler.obtainMessage();
+                msg.what = GET_ALL;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+
+    }
+    /**
+     * 显示对话框
+     */
+    public void showMyDialog(){
+        animDialog =new MyProgressDialog(getActivity(), "玩命加载中...",R.drawable.loading);
+        animDialog.show();
+        animDialog.setCancelable(true);
+        animDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if(call.isExecuted()){
+                    call.cancel();
+                }
+            }
+        });
+    }
+}

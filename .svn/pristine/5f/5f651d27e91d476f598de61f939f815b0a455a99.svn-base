@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.jiahehongye.robred.activity.DiamondAccountActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_388">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_194"
+            android:background="@color/home_state_color">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_80">
+
+                <RelativeLayout
+                    android:id="@+id/zuanshi_back"
+                    android:layout_width="@dimen/px_80"
+                    android:layout_height="@dimen/px_80">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/px_30"
+                        android:src="@mipmap/left_row" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text="钻石账户"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/px_text_34" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/px_80"
+                    android:layout_gravity="right|center_vertical">
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/px_30"
+                        android:text="说明"
+                        android:textColor="#80FEFEFE" />
+                </RelativeLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_194"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/diamond_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_85"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px_text_30" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/px_10"
+                        android:src="@mipmap/masonry" />
+
+                    <TextView
+                        android:id="@+id/diamond_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/px_60"
+                        android:textColor="#6F6F6F"
+                        android:textSize="@dimen/px_text_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px_60"
+                        android:src="@mipmap/flower" />
+
+                    <TextView
+                        android:id="@+id/flower_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px_10"
+                        android:textColor="#6F6F6F"
+                        android:textSize="@dimen/px_text_24" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/diamond_head"
+            android:layout_width="@dimen/px_120"
+            android:layout_height="@dimen/px_120"
+            android:layout_gravity="center"
+            android:src="@mipmap/avatar_mine" />
+
+        <ImageView
+            android:id="@+id/diamond_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/px_45"
+            android:layout_marginLeft="@dimen/px_60" />
+
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_30"
+        android:background="@color/basebackground" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_90"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/buy_diamond"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/buy_diamond_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:text="@string/buy_diamond"
+                android:textColor="@color/home_state_color"
+                android:textSize="@dimen/px_text_30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/free_flower"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/free_flower_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:text="@string/free_flower"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px_text_30" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/diamond_label"
+        android:layout_width="20dp"
+        android:layout_height="3dp"
+        android:background="@color/home_state_color" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/diamond_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

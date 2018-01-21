@@ -1,0 +1,522 @@
+package com.jiahehongye.robred.bean;
+
+import java.util.List;
+
+/**
+ * Created by huangjunhui on 2016/12/28.15:48
+ */
+public class GrabDetailPeopleDetailResult {
+
+
+    /**
+     * result : success
+     * data : {"member":[{"personalDescription":"","nickName":"宝宝心里苦","userLevel":"1","userPhoto":"http://img1.jinhoubaobao.com/group1/M00/00/00/dwozhlawM5WAYdrdAABCatO3X_A45.jpeg","mobile":"15933434904"}],"sendRedEnve":{"remainRedEnveSum":"8","redEnveNum":"10","userPhoto":"http://img1.jinhoubaobao.com/group1/M00/00/00/dwozhlawM5WAYdrdAABCatO3X_A45.jpeg","grabBeginDate":"","grabEndDate":"","modifyDate":"2016-12-27 13:33:09","compAddr":"","id":"A01148280811207057540","auditStatus":"3","grabedRedEnveSum":"2","redEnveCode":"HBA01148280811207014536","nickName":"宝宝心里苦","auditBeginDate":"","redEnveType":false,"userName":"15933434904","tid":"A01145438652011443124","redIntroduction":"","createDate":"2016-12-27 11:08:32","remainMoney":"39.91","userWap":"","compIndustry":"","memId":"A01145438652011443124","redEnveMoney":"50.00","CARD_TYPE":"","rejectReason":"","BANK_CARD":"","compName":"","redEnveMode":"1","issueDate":"","busiAdPage":"","userProp":"1","BANK_NAME":"","sendRedEnveDate":"2016-12-27 11:08:40","CARD_ID":"","flag":false,"grabRedEnveAd":"","compProfile":"","redEnveLeaveword":"恭喜发财，大吉大利","PAY_TYPE":"3","receiptNumber":""}}
+     */
+
+    private String result;
+    /**
+     * member : [{"personalDescription":"","nickName":"宝宝心里苦","userLevel":"1","userPhoto":"http://img1.jinhoubaobao.com/group1/M00/00/00/dwozhlawM5WAYdrdAABCatO3X_A45.jpeg","mobile":"15933434904"}]
+     * sendRedEnve : {"remainRedEnveSum":"8","redEnveNum":"10","userPhoto":"http://img1.jinhoubaobao.com/group1/M00/00/00/dwozhlawM5WAYdrdAABCatO3X_A45.jpeg","grabBeginDate":"","grabEndDate":"","modifyDate":"2016-12-27 13:33:09","compAddr":"","id":"A01148280811207057540","auditStatus":"3","grabedRedEnveSum":"2","redEnveCode":"HBA01148280811207014536","nickName":"宝宝心里苦","auditBeginDate":"","redEnveType":false,"userName":"15933434904","tid":"A01145438652011443124","redIntroduction":"","createDate":"2016-12-27 11:08:32","remainMoney":"39.91","userWap":"","compIndustry":"","memId":"A01145438652011443124","redEnveMoney":"50.00","CARD_TYPE":"","rejectReason":"","BANK_CARD":"","compName":"","redEnveMode":"1","issueDate":"","busiAdPage":"","userProp":"1","BANK_NAME":"","sendRedEnveDate":"2016-12-27 11:08:40","CARD_ID":"","flag":false,"grabRedEnveAd":"","compProfile":"","redEnveLeaveword":"恭喜发财，大吉大利","PAY_TYPE":"3","receiptNumber":""}
+     */
+
+    private DataBean data;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public static class DataBean {
+        /**
+         * remainRedEnveSum : 8
+         * redEnveNum : 10
+         * userPhoto : http://img1.jinhoubaobao.com/group1/M00/00/00/dwozhlawM5WAYdrdAABCatO3X_A45.jpeg
+         * grabBeginDate :
+         * grabEndDate :
+         * modifyDate : 2016-12-27 13:33:09
+         * compAddr :
+         * id : A01148280811207057540
+         * auditStatus : 3
+         * grabedRedEnveSum : 2
+         * redEnveCode : HBA01148280811207014536
+         * nickName : 宝宝心里苦
+         * auditBeginDate :
+         * redEnveType : false
+         * userName : 15933434904
+         * tid : A01145438652011443124
+         * redIntroduction :
+         * createDate : 2016-12-27 11:08:32
+         * remainMoney : 39.91
+         * userWap :
+         * compIndustry :
+         * memId : A01145438652011443124
+         * redEnveMoney : 50.00
+         * CARD_TYPE :
+         * rejectReason :
+         * BANK_CARD :
+         * compName :
+         * redEnveMode : 1
+         * issueDate :
+         * busiAdPage :
+         * userProp : 1
+         * BANK_NAME :
+         * sendRedEnveDate : 2016-12-27 11:08:40
+         * CARD_ID :
+         * flag : false
+         * grabRedEnveAd :
+         * compProfile :
+         * redEnveLeaveword : 恭喜发财，大吉大利
+         * PAY_TYPE : 3
+         * receiptNumber :
+         */
+
+        private SendRedEnveBean sendRedEnve;
+        /**
+         * personalDescription :
+         * nickName : 宝宝心里苦
+         * userLevel : 1
+         * userPhoto : http://img1.jinhoubaobao.com/group1/M00/00/00/dwozhlawM5WAYdrdAABCatO3X_A45.jpeg
+         * mobile : 15933434904
+         */
+
+        private List<MemberBean> member;
+
+        public SendRedEnveBean getSendRedEnve() {
+            return sendRedEnve;
+        }
+
+        public void setSendRedEnve(SendRedEnveBean sendRedEnve) {
+            this.sendRedEnve = sendRedEnve;
+        }
+
+        public List<MemberBean> getMember() {
+            return member;
+        }
+
+        public void setMember(List<MemberBean> member) {
+            this.member = member;
+        }
+
+        public static class SendRedEnveBean {
+            private String remainRedEnveSum;
+            private String redEnveNum;
+            private String userPhoto;
+            private String grabBeginDate;
+            private String grabEndDate;
+            private String modifyDate;
+            private String compAddr;
+            private String id;
+            private String auditStatus;
+            private String grabedRedEnveSum;
+            private String redEnveCode;
+            private String nickName;
+            private String auditBeginDate;
+            private boolean redEnveType;
+            private String userName;
+            private String tid;
+            private String redIntroduction;
+            private String createDate;
+            private String remainMoney;
+            private String userWap;
+            private String compIndustry;
+            private String memId;
+            private String redEnveMoney;
+            private String CARD_TYPE;
+            private String rejectReason;
+            private String BANK_CARD;
+            private String compName;
+            private String redEnveMode;
+            private String issueDate;
+            private String busiAdPage;
+            private String userProp;
+            private String BANK_NAME;
+            private String sendRedEnveDate;
+            private String CARD_ID;
+            private boolean flag;
+            private String grabRedEnveAd;
+            private String compProfile;
+            private String redEnveLeaveword;
+            private String PAY_TYPE;
+            private String receiptNumber;
+
+            public String getRemainRedEnveSum() {
+                return remainRedEnveSum;
+            }
+
+            public void setRemainRedEnveSum(String remainRedEnveSum) {
+                this.remainRedEnveSum = remainRedEnveSum;
+            }
+
+            public String getRedEnveNum() {
+                return redEnveNum;
+            }
+
+            public void setRedEnveNum(String redEnveNum) {
+                this.redEnveNum = redEnveNum;
+            }
+
+            public String getUserPhoto() {
+                return userPhoto;
+            }
+
+            public void setUserPhoto(String userPhoto) {
+                this.userPhoto = userPhoto;
+            }
+
+            public String getGrabBeginDate() {
+                return grabBeginDate;
+            }
+
+            public void setGrabBeginDate(String grabBeginDate) {
+                this.grabBeginDate = grabBeginDate;
+            }
+
+            public String getGrabEndDate() {
+                return grabEndDate;
+            }
+
+            public void setGrabEndDate(String grabEndDate) {
+                this.grabEndDate = grabEndDate;
+            }
+
+            public String getModifyDate() {
+                return modifyDate;
+            }
+
+            public void setModifyDate(String modifyDate) {
+                this.modifyDate = modifyDate;
+            }
+
+            public String getCompAddr() {
+                return compAddr;
+            }
+
+            public void setCompAddr(String compAddr) {
+                this.compAddr = compAddr;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getAuditStatus() {
+                return auditStatus;
+            }
+
+            public void setAuditStatus(String auditStatus) {
+                this.auditStatus = auditStatus;
+            }
+
+            public String getGrabedRedEnveSum() {
+                return grabedRedEnveSum;
+            }
+
+            public void setGrabedRedEnveSum(String grabedRedEnveSum) {
+                this.grabedRedEnveSum = grabedRedEnveSum;
+            }
+
+            public String getRedEnveCode() {
+                return redEnveCode;
+            }
+
+            public void setRedEnveCode(String redEnveCode) {
+                this.redEnveCode = redEnveCode;
+            }
+
+            public String getNickName() {
+                return nickName;
+            }
+
+            public void setNickName(String nickName) {
+                this.nickName = nickName;
+            }
+
+            public String getAuditBeginDate() {
+                return auditBeginDate;
+            }
+
+            public void setAuditBeginDate(String auditBeginDate) {
+                this.auditBeginDate = auditBeginDate;
+            }
+
+            public boolean isRedEnveType() {
+                return redEnveType;
+            }
+
+            public void setRedEnveType(boolean redEnveType) {
+                this.redEnveType = redEnveType;
+            }
+
+            public String getUserName() {
+                return userName;
+            }
+
+            public void setUserName(String userName) {
+                this.userName = userName;
+            }
+
+            public String getTid() {
+                return tid;
+            }
+
+            public void setTid(String tid) {
+                this.tid = tid;
+            }
+
+            public String getRedIntroduction() {
+                return redIntroduction;
+            }
+
+            public void setRedIntroduction(String redIntroduction) {
+                this.redIntroduction = redIntroduction;
+            }
+
+            public String getCreateDate() {
+                return createDate;
+            }
+
+            public void setCreateDate(String createDate) {
+                this.createDate = createDate;
+            }
+
+            public String getRemainMoney() {
+                return remainMoney;
+            }
+
+            public void setRemainMoney(String remainMoney) {
+                this.remainMoney = remainMoney;
+            }
+
+            public String getUserWap() {
+                return userWap;
+            }
+
+            public void setUserWap(String userWap) {
+                this.userWap = userWap;
+            }
+
+            public String getCompIndustry() {
+                return compIndustry;
+            }
+
+            public void setCompIndustry(String compIndustry) {
+                this.compIndustry = compIndustry;
+            }
+
+            public String getMemId() {
+                return memId;
+            }
+
+            public void setMemId(String memId) {
+                this.memId = memId;
+            }
+
+            public String getRedEnveMoney() {
+                return redEnveMoney;
+            }
+
+            public void setRedEnveMoney(String redEnveMoney) {
+                this.redEnveMoney = redEnveMoney;
+            }
+
+            public String getCARD_TYPE() {
+                return CARD_TYPE;
+            }
+
+            public void setCARD_TYPE(String CARD_TYPE) {
+                this.CARD_TYPE = CARD_TYPE;
+            }
+
+            public String getRejectReason() {
+                return rejectReason;
+            }
+
+            public void setRejectReason(String rejectReason) {
+                this.rejectReason = rejectReason;
+            }
+
+            public String getBANK_CARD() {
+                return BANK_CARD;
+            }
+
+            public void setBANK_CARD(String BANK_CARD) {
+                this.BANK_CARD = BANK_CARD;
+            }
+
+            public String getCompName() {
+                return compName;
+            }
+
+            public void setCompName(String compName) {
+                this.compName = compName;
+            }
+
+            public String getRedEnveMode() {
+                return redEnveMode;
+            }
+
+            public void setRedEnveMode(String redEnveMode) {
+                this.redEnveMode = redEnveMode;
+            }
+
+            public String getIssueDate() {
+                return issueDate;
+            }
+
+            public void setIssueDate(String issueDate) {
+                this.issueDate = issueDate;
+            }
+
+            public String getBusiAdPage() {
+                return busiAdPage;
+            }
+
+            public void setBusiAdPage(String busiAdPage) {
+                this.busiAdPage = busiAdPage;
+            }
+
+            public String getUserProp() {
+                return userProp;
+            }
+
+            public void setUserProp(String userProp) {
+                this.userProp = userProp;
+            }
+
+            public String getBANK_NAME() {
+                return BANK_NAME;
+            }
+
+            public void setBANK_NAME(String BANK_NAME) {
+                this.BANK_NAME = BANK_NAME;
+            }
+
+            public String getSendRedEnveDate() {
+                return sendRedEnveDate;
+            }
+
+            public void setSendRedEnveDate(String sendRedEnveDate) {
+                this.sendRedEnveDate = sendRedEnveDate;
+            }
+
+            public String getCARD_ID() {
+                return CARD_ID;
+            }
+
+            public void setCARD_ID(String CARD_ID) {
+                this.CARD_ID = CARD_ID;
+            }
+
+            public boolean isFlag() {
+                return flag;
+            }
+
+            public void setFlag(boolean flag) {
+                this.flag = flag;
+            }
+
+            public String getGrabRedEnveAd() {
+                return grabRedEnveAd;
+            }
+
+            public void setGrabRedEnveAd(String grabRedEnveAd) {
+                this.grabRedEnveAd = grabRedEnveAd;
+            }
+
+            public String getCompProfile() {
+                return compProfile;
+            }
+
+            public void setCompProfile(String compProfile) {
+                this.compProfile = compProfile;
+            }
+
+            public String getRedEnveLeaveword() {
+                return redEnveLeaveword;
+            }
+
+            public void setRedEnveLeaveword(String redEnveLeaveword) {
+                this.redEnveLeaveword = redEnveLeaveword;
+            }
+
+            public String getPAY_TYPE() {
+                return PAY_TYPE;
+            }
+
+            public void setPAY_TYPE(String PAY_TYPE) {
+                this.PAY_TYPE = PAY_TYPE;
+            }
+
+            public String getReceiptNumber() {
+                return receiptNumber;
+            }
+
+            public void setReceiptNumber(String receiptNumber) {
+                this.receiptNumber = receiptNumber;
+            }
+        }
+
+        public static class MemberBean {
+            private String personalDescription;
+            private String nickName;
+            private String userLevel;
+            private String userPhoto;
+            private String mobile;
+
+            public String getPersonalDescription() {
+                return personalDescription;
+            }
+
+            public void setPersonalDescription(String personalDescription) {
+                this.personalDescription = personalDescription;
+            }
+
+            public String getNickName() {
+                return nickName;
+            }
+
+            public void setNickName(String nickName) {
+                this.nickName = nickName;
+            }
+
+            public String getUserLevel() {
+                return userLevel;
+            }
+
+            public void setUserLevel(String userLevel) {
+                this.userLevel = userLevel;
+            }
+
+            public String getUserPhoto() {
+                return userPhoto;
+            }
+
+            public void setUserPhoto(String userPhoto) {
+                this.userPhoto = userPhoto;
+            }
+
+            public String getMobile() {
+                return mobile;
+            }
+
+            public void setMobile(String mobile) {
+                this.mobile = mobile;
+            }
+        }
+    }
+}

@@ -1,0 +1,116 @@
+package com.jiahehongye.robred.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.utils.LogUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by huangjunhui on 2016/12/29.14:08
+ */
+public class SystemActivity extends BaseActivity implements View.OnClickListener
+{
+
+    private String pageNumber;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        setContentView(R.layout.activity_system);
+
+        initView();
+        pageNumber = "1";
+        requestDate(pageNumber);
+    }
+
+
+
+    private void initView() {
+        TextView mTvTitle= (TextView) findViewById(R.id.application_tv_title);
+        ImageView mIvBack = (ImageView) findViewById(R.id.application_iv_back);
+        mIvBack.setOnClickListener(this);
+        mTvTitle.setText("系统消息");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.application_iv_back:
+                finish();
+                break;
+        }
+    }
+
+    /**
+     *
+     */
+    private void requestDate(String pageNumber) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cookieJar(new CookieJarImpl(new PersistentCookieStore(this)))
+                .build();
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type","1");
+            jsonObject.put("pageSize","10");
+            jsonObject.put("pageNumber",pageNumber);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.MESSAGE_LIST)
+                .post(body)
+                .build();
+
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                SystemActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText( SystemActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+//                Message msg = handler.obtainMessage();
+//                msg.what = MESSAGE_UNREAD_SUCCESS;
+//                msg.obj = result;
+//                handler.sendMessage(msg);
+                LogUtil.LogShitou("MESSAGE_LIST",result);
+            }
+        });
+    }
+}

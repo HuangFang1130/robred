@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/application_title" />
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="88px"-->
+    <!--android:background="@color/white">-->
+
+
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/activity_relation_tablayout"-->
+    <!--style="@style/MyCustomTabLayout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="88px"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:background="@color/white"-->
+    <!--app:tabGravity="center"-->
+    <!--app:tabIndicatorHeight="4px"-->
+    <!--app:tabMaxWidth="300dp"-->
+    <!--app:tabMode="fixed"-->
+    <!--app:tabSelectedTextColor="@color/theme_color"-->
+    <!--app:tabTextAppearance="@style/Second_TabLayout"-->
+    <!--app:tabTextColor="#333" />-->
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@color/line_color" />-->
+    <!--</RelativeLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/my_comment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/my_comment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:text="关注"
+                />
+        </LinearLayout>
+        <View
+            android:layout_gravity="center"
+            android:layout_width="1px"
+            android:layout_height="48px"
+            android:background="@color/colorTextHintMobile"/>
+
+        <LinearLayout
+            android:id="@+id/my_reply"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/my_reply_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:text="粉丝"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/comment_label"
+        android:layout_width="wrap_content"
+        android:layout_height="3px"
+        android:background="@drawable/tab_sliding_block" />
+    <View
+        android:layout_alignParentBottom="true"
+        android:background="@color/line_color"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_relation_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

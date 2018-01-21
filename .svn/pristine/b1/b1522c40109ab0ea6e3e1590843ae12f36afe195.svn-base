@@ -1,0 +1,95 @@
+package com.jiahehongye.robred.fragment;
+
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.Toast;
+
+import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.ChatGiftPagerAdapter;
+import com.jiahehongye.robred.view.ChatPopPager;
+
+import java.util.ArrayList;
+
+/**
+ * Created by huangjunhui on 2016/12/21.13:45
+ */
+public class ChatFragment extends EaseChatFragment implements EaseChatFragment.onClickGiftLinstener, View.OnClickListener {
+
+
+    private ChatGiftPagerAdapter chatGiftPagerAdapter;
+    private ArrayList<ChatPopPager> arrayLists;
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setOnClickGiftListener(this);
+    }
+
+    @Override
+    public void onClickGift() {
+        showPopupWindow();
+    }
+
+    private void showPopupWindow() {
+
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(getActivity()).inflate(
+                R.layout.ease_chat_popwindow, null);
+        Button mPopBtnSend = (Button) contentView.findViewById(R.id.chat_pop_btn_send);
+        ViewPager mPopViewpager = (ViewPager) contentView.findViewById(R.id.chat_pop_viewpager);
+
+        arrayLists = new ArrayList<>();
+        for (int i = 0; i<3;i++){
+            ChatPopPager chatPopPager = new ChatPopPager(getActivity());
+            arrayLists.add(chatPopPager);
+        }
+
+        chatGiftPagerAdapter = new ChatGiftPagerAdapter(getActivity(),arrayLists);
+        mPopViewpager.setAdapter(chatGiftPagerAdapter);
+        mPopBtnSend.setOnClickListener(this);
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.i("mengdd", "onTouch : ");
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+        // 设置好参数之后再show
+        popupWindow.showAtLocation(inflate, Gravity.BOTTOM,5,5);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        
+        switch (v.getId()){
+            case R.id.chat_pop_btn_send :
+                Toast.makeText(getActivity(), "SEND", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+
+}

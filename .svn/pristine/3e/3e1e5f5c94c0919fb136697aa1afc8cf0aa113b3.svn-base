@@ -1,0 +1,103 @@
+package com.jiahehongye.robred.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.BillionairesRecycleAdapter;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Administrator on 2016/12/2.
+ */
+public class BillionairesActivity extends BaseActivity implements View.OnClickListener {
+
+    private SwipeRefreshLayout mBillionSwipeRefresh;
+    private RecyclerView mBillionRecycle;
+    private BillionairesRecycleAdapter billionairesRecycleAdapter;
+    private LinearLayoutManager linearLayoutManager;
+    private ArrayList<String> fathreArrayList;
+    private ArrayList<String> arrayList;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        setContentView(R.layout.activity_billionaires);
+        initView();
+    }
+
+    private void initView() {
+        ImageView mIvback= (ImageView) findViewById(R.id.billion_back_row);
+        mBillionSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.billion_swiperefreshlayout);
+        mBillionRecycle = (RecyclerView) findViewById(R.id.billion_recycleview);
+
+        mBillionSwipeRefresh.setColorSchemeResources(R.color.holo_blue_bright,R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+
+        arrayList = new ArrayList<>();
+        for (int i=0;i<20;i++){
+            arrayList.add("i");
+        }
+        fathreArrayList = new ArrayList<>();
+        fathreArrayList.addAll(arrayList);
+        billionairesRecycleAdapter = new BillionairesRecycleAdapter(this, fathreArrayList);
+        linearLayoutManager = new LinearLayoutManager(this);
+        mBillionRecycle.setLayoutManager(linearLayoutManager);
+        mBillionRecycle.setItemAnimator(new DefaultItemAnimator());
+//        mBillionRecycle.addItemDecoration(new DividerItemDecoration(
+//                this, DividerItemDecoration.HORIZONTAL_LIST));
+        mBillionRecycle.setAdapter(billionairesRecycleAdapter);
+        mIvback.setOnClickListener(this);
+        mBillionSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mBillionSwipeRefresh.setRefreshing(false);
+            }
+        });
+        //滑动的监听
+        mBillionRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisiblePosition >= linearLayoutManager.getItemCount()-1){
+                        fathreArrayList.addAll(arrayList);
+                        billionairesRecycleAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
+
+
+        billionairesRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Toast.makeText(BillionairesActivity.this,"点击了"+postion,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.billion_back_row:
+                finish();
+                break;
+        }
+    }
+
+}

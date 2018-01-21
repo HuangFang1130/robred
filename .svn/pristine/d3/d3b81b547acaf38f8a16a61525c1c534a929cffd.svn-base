@@ -1,0 +1,180 @@
+package com.jiahehongye.robred.activity;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.fragment.MyCommentFragment;
+import com.jiahehongye.robred.fragment.MyReplyFragment;
+import com.jiahehongye.robred.utils.DensityUtil;
+
+import java.util.ArrayList;
+
+public class MyCommentActivity extends BaseActivity {
+
+    private int mScreenWidth;
+    private int text_width;
+    private LinearLayout.LayoutParams params;
+    private View label;
+    private int mLabelWidth;
+    private ArrayList<Fragment> allFragment =new ArrayList<>();
+    private ViewPager comment_viewpager;
+    private TextView my_comment_text,my_reply_text;
+    private LinearLayout my_comment,my_reply;
+    private RelativeLayout mycomment_back;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.white);
+        setContentView(R.layout.activity_my_comment);
+
+        init();
+        //获取屏幕宽度
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mScreenWidth = metrics.widthPixels;
+        setLabelWidth();
+        addFragment();
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager(), allFragment);
+        comment_viewpager.setCurrentItem(0);
+        comment_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                params.setMargins((int) ((mScreenWidth / 2 - mLabelWidth) / 2
+                        + mScreenWidth / 2 * (position + positionOffset)), 0, 0, 0);
+                label.setLayoutParams(params);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        my_comment_text.setTextColor(getResources().getColor(R.color.home_state_color));
+                        my_reply_text.setTextColor(getResources().getColor(R.color.black));
+                        break;
+
+                    case 1:
+                        my_comment_text.setTextColor(getResources().getColor(R.color.black));
+                        my_reply_text.setTextColor(getResources().getColor(R.color.home_state_color));
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        params.setMargins((mScreenWidth / 2 - mLabelWidth) / 2, 0, 0, 0);
+        label.setLayoutParams(params);
+        comment_viewpager.setAdapter(adapter);
+        my_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comment_viewpager.setCurrentItem(0);
+                my_comment_text.setTextColor(getResources().getColor(R.color.home_state_color));
+                my_reply_text.setTextColor(getResources().getColor(R.color.black));
+            }
+        });
+        my_reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comment_viewpager.setCurrentItem(1);
+                my_comment_text.setTextColor(getResources().getColor(R.color.black));
+                my_reply_text.setTextColor(getResources().getColor(R.color.home_state_color));
+            }
+        });
+        mycomment_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void init() {
+        mycomment_back = (RelativeLayout) findViewById(R.id.mycomment_back);
+        my_reply = (LinearLayout) findViewById(R.id.my_reply);
+        my_comment = (LinearLayout) findViewById(R.id.my_comment);
+        my_reply_text = (TextView) findViewById(R.id.my_reply_text);
+        my_comment_text = (TextView) findViewById(R.id.my_comment_text);
+        comment_viewpager= (ViewPager) findViewById(R.id.comment_viewpager);
+        my_comment_text = (TextView) findViewById(R.id.my_comment_text);
+        label = findViewById(R.id.comment_label);
+    }
+
+    private void setLabelWidth() {
+        //获取文字宽度
+        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        my_comment_text.measure(w, h);
+        text_width = my_comment_text.getMeasuredWidth();
+
+        // Log.i("width", text_width + "");
+        //获取红色标记的属性
+        params = (LinearLayout.LayoutParams)label.getLayoutParams();
+        //蓝色标记的宽度为 文字宽度+图片宽度+5dp
+        mLabelWidth = params.width= text_width +  DensityUtil.dip2px(this, 5);
+    }
+
+    private void addFragment() {
+        MyCommentFragment a = new MyCommentFragment();
+        MyReplyFragment b = new MyReplyFragment();
+        allFragment.add(a);
+        allFragment.add(b);
+    }
+
+
+    /**
+     * 可滑动Fragment
+     */
+    class FragmentAdapter extends FragmentPagerAdapter {
+        private ArrayList<Fragment> fragments;
+        private FragmentManager fm;
+
+        public FragmentAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+            super(fm);
+            this.fm = fm;
+            this.fragments = fragments;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+        @Override
+        public Fragment getItem(int arg0) {
+            return fragments.get(arg0);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments == null ? 0 : fragments.size();
+        }
+
+        /**
+         * 防止数据重复加载
+         */
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+
+        }
+
+    }
+}

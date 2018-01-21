@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/oneyuanpay_rl_back"
+            android:layout_width="@dimen/px_80"
+            android:layout_height="@dimen/px_80">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_30"
+                android:src="@mipmap/row_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="提交订单"
+            android:textColor="@color/black"
+            android:textSize="@dimen/px_text_34" />
+    </RelativeLayout>
+    <View
+        android:background="@color/view_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"/>
+
+    <LinearLayout
+        android:id="@+id/up"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:lines="1"
+            android:textColor="@color/black"
+            android:paddingBottom="@dimen/px_20"
+            android:paddingTop="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_30"
+            android:textSize="@dimen/px_30"
+            android:text="0"
+            android:id="@+id/oneyuan_productname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_120">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/px_30"
+                    android:text="参与份数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="@dimen/px_5"
+                    android:text="份数越多，机会越大"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center|right"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+
+                    android:id="@+id/detail_minus"
+                    android:background="@drawable/black_xiankuang"
+                    android:gravity="center"
+                    android:text="—"
+                    android:layout_width="@dimen/px_50"
+                    android:layout_height="@dimen/px_50" />
+                <TextView
+                    android:layout_marginLeft="@dimen/px_10"
+                    android:layout_marginRight="@dimen/px_10"
+                    android:textColor="@color/black"
+                    android:paddingRight="@dimen/px_40"
+                    android:paddingLeft="@dimen/px_40"
+                    android:id="@+id/detail_number"
+                    android:background="@drawable/black_xiankuang"
+                    android:gravity="center"
+                    android:text="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/px_50" />
+                <TextView
+                    android:textColor="@color/sendred_tv_change"
+                    android:layout_marginRight="@dimen/px_30"
+                    android:id="@+id/detail_plus"
+                    android:background="@drawable/black_xiankuang"
+                    android:gravity="center"
+                    android:text="+"
+                    android:layout_width="@dimen/px_50"
+                    android:layout_height="@dimen/px_50" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_88">
+            <LinearLayout
+                android:layout_marginLeft="@dimen/px_30"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/px_28"
+                    android:text="小计"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/px_30"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/xiaoji"
+                    android:textColor="@color/sendred_tv_change"
+                    android:text="¥0.00"
+                    android:textSize="@dimen/px_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_10"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:paddingBottom="@dimen/px_20"
+            android:paddingTop="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_30"
+            android:textSize="@dimen/px_28"
+            android:text="中奖后联系您的手机号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:id="@+id/oneyuan_mobile"
+            android:textColor="@color/sendred_tv_change"
+            android:background="@null"
+            android:paddingBottom="@dimen/px_20"
+            android:paddingTop="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_30"
+            android:textSize="@dimen/px_28"
+            android:hint="您的手机号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+        <TextView
+            android:textColor="#818080"
+            android:paddingBottom="@dimen/px_20"
+            android:paddingTop="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_30"
+            android:textSize="14sp"
+            android:text="请认真核对您的手机号，如不符合点击可修改"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView 
+            android:id="@+id/tv_111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="抢购有风险，参与需谨慎"
+            android:textSize="14sp"
+            android:textColor="#b2b2b2"/>
+        <!--<TextView -->
+            <!--android:id="@+id/tv_222"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_above="@+id/tv_111"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:text="无需另外支付"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="#FFA800"/>-->
+        <!--<TextView -->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_above="@+id/tv_222"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:text="点“立即支付”商品费用将从红包余额里扣除"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="#FFA800"/>-->
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_88"
+        android:orientation="horizontal" >
+
+
+        <Button
+            android:id="@+id/btn_oneyuan_pay_ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:text="立即支付"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,141 @@
+package com.jiahehongye.robred.adapter;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jiahehongye.robred.MainActivity;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.interfaces.MyHeadViewClickListener;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.view.CustomMessageLinearlayout;
+
+import java.util.ArrayList;
+
+/**
+ * Created by huangjunhui on 2016/12/5.18:49
+ */
+public class MessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    //item类型
+    public static final int ITEM_TYPE_HEADER = 0;
+    public static final int ITEM_TYPE_CONTENT = 1;
+    public static final int ITEM_TYPE_FOOT = 2;
+    private ArrayList<String> fatherArrayList;
+    private MainActivity mActivity;
+    private View footView;
+    private MyItemClickListener mItemClickListener;
+    private MyHeadViewClickListener mHeadClickListener;
+
+
+    public MessageRecycleAdapter(MainActivity mMainUi, ArrayList<String> fatherArrayList) {
+        this.mActivity = mMainUi;
+        this.fatherArrayList = fatherArrayList;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        switch (viewType) {
+            case ITEM_TYPE_HEADER:
+                View headView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_message_head, null);
+                return new MessageHeadViewHolder(headView, mHeadClickListener);
+            case ITEM_TYPE_CONTENT:
+                View contentView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_message_content, null);
+                return new MessageContentViewHolder(contentView, mItemClickListener);
+            case ITEM_TYPE_FOOT:
+                footView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home_foot, null);
+                return new MessageFootViewHolder(footView);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (getItemCount() == 1) {
+            return ITEM_TYPE_HEADER;
+        }
+        if (position == 0) {
+            return ITEM_TYPE_HEADER;
+        } else if (position == fatherArrayList.size() + 1) {
+            return ITEM_TYPE_FOOT;
+        } else {
+            return ITEM_TYPE_CONTENT;
+        }
+    }
+
+    public void setOnItemClickListener(MyItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public void setOnHeadClickListener(MyHeadViewClickListener listener) {
+        this.mHeadClickListener = listener;
+    }
+    @Override
+    public int getItemCount() {
+        if (fatherArrayList != null && fatherArrayList.size() > 0) {
+            return fatherArrayList.size() + 2;
+        } else {
+            return 1;
+        }
+    }
+
+    class MessageHeadViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyHeadViewClickListener mHeadClickListener;
+        private  CustomMessageLinearlayout mMessageNotify;
+        private  CustomMessageLinearlayout mMessageInteraction;
+        private  CustomMessageLinearlayout mMessageSystem;
+
+        public MessageHeadViewHolder(View itemView, MyHeadViewClickListener mHeadClickListener) {
+            super(itemView);
+            this.mHeadClickListener = mHeadClickListener;
+            mMessageNotify = (CustomMessageLinearlayout) itemView.findViewById(R.id.message_notification);
+            mMessageInteraction = (CustomMessageLinearlayout) itemView.findViewById(R.id.message_interaction);
+            mMessageSystem = (CustomMessageLinearlayout) itemView.findViewById(R.id.message_system);
+
+            mMessageNotify.setOnClickListener(this);
+            mMessageInteraction.setOnClickListener(this);
+            mMessageSystem.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mHeadClickListener!=null){
+                mHeadClickListener.onHeadClick(v);
+            }
+        }
+    }
+
+    class MessageContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyItemClickListener mItemClickListener;
+
+        public MessageContentViewHolder(View itemView, MyItemClickListener mItemClickListener) {
+            super(itemView);
+            this.mItemClickListener = mItemClickListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mItemClickListener!=null){
+                mItemClickListener.onItemClick(v,getPosition());
+            }
+        }
+    }
+
+    class MessageFootViewHolder extends RecyclerView.ViewHolder{
+
+        public MessageFootViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+}

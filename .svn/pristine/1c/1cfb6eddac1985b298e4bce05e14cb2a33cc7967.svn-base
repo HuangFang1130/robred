@@ -1,0 +1,70 @@
+package com.jiahehongye.robred.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.CommentAllRecycleAdapter;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+
+import java.util.ArrayList;
+
+/**
+ * Created by huangjunhui on 2016/12/6.16:40
+ *
+ * 所有评论
+ */
+public class CommentAllActivity extends BaseActivity {
+    private ArrayList<String> fatherArrayList;
+    private ArrayList<String> arrayList;
+    private RecyclerView mCommentAllRecycleView;
+    private LinearLayoutManager linearLayoutManager;
+    private CommentAllRecycleAdapter commentAllRecycleAdapter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        setContentView(R.layout.activity_comment_all_content);
+        mCommentAllRecycleView = (RecyclerView) findViewById(R.id.comment_all_recycleview);
+        linearLayoutManager = new LinearLayoutManager(this);
+        mCommentAllRecycleView.setLayoutManager(linearLayoutManager);
+        mCommentAllRecycleView.setItemAnimator(new DefaultItemAnimator());
+        arrayList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            arrayList.add("我是第" + i + "个条目");
+        }
+        fatherArrayList = new ArrayList<>();
+        fatherArrayList.addAll(arrayList);
+        commentAllRecycleAdapter = new CommentAllRecycleAdapter(this, fatherArrayList);
+        mCommentAllRecycleView.setAdapter(commentAllRecycleAdapter);
+        //滑动的监听
+        mCommentAllRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisiblePosition >= linearLayoutManager.getItemCount()-1){
+                        fatherArrayList.addAll(arrayList);
+                        commentAllRecycleAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+        commentAllRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+//                Intent intent = new Intent(CommentAllActivity.this,PraiseAllActivity.class);
+//                startActivity(intent);
+            }
+        });
+    }
+}

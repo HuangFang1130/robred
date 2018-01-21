@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_320"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/paiming_bg" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/px_120"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/billion_my_awarded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="64"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_68" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billion_my_awarded"
+                android:layout_centerHorizontal="true"
+                android:text="@string/billon_tv_ranking"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px_24" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_15"
+        android:background="@color/billion_view_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_200"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px_20"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/billion_paiming_avatar_two"
+                android:layout_width="@dimen/px_110"
+                android:layout_height="@dimen/px_110"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px_30"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/avatar" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/yin" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/px_20"
+                android:src="@mipmap/two" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px_10"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/billion_paiming_avatar_one"
+                android:layout_width="@dimen/px_130"
+                android:layout_height="@dimen/px_130"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px_30"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/avatar" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/jin" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/px_10"
+                android:src="@mipmap/one" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px_30"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/billion_paiming_avatar_three"
+                android:layout_width="@dimen/px_100"
+                android:layout_height="@dimen/px_100"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px_20"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/avatar" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/tong" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/px_30"
+                android:src="@mipmap/three" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_10"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/billion_two_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/billon_tv_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px_30" />
+
+            <TextView
+                android:id="@+id/billion_paiming_money_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billion_two_user_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_10"
+                android:text="@string/billon_tv_money"
+                android:textColor="@color/billion_tv_orige"
+                android:textSize="@dimen/px_30" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_10"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/billion_one_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/billon_tv_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px_30" />
+
+            <TextView
+                android:id="@+id/billion_paiming_money_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billion_one_user_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_10"
+                android:text="@string/billon_tv_money"
+                android:textColor="@color/billion_tv_orige"
+                android:textSize="@dimen/px_30" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_10"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/billion_three_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/billon_tv_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px_30" />
+
+            <TextView
+                android:id="@+id/billion_paiming_money_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billion_three_user_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_10"
+                android:text="@string/billon_tv_money"
+                android:textColor="@color/billion_tv_orige"
+                android:textSize="@dimen/px_30" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

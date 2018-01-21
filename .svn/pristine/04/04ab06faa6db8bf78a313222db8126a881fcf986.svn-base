@@ -1,0 +1,92 @@
+package com.jiahehongye.robred.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.RedPersonalDetailActivity;
+import com.jiahehongye.robred.adapter.GrabMerchantRecycleAdapter;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+
+import java.util.ArrayList;
+
+/**
+ * Created by huangjunhui on 2016/12/2.14:07
+ */
+public class GrabMerchantFragment extends Fragment {
+
+    private SwipeRefreshLayout mMerchantSwiperefresh;
+    private RecyclerView mMerchantRecycle;
+    private ArrayList<String> arrayList;
+    private ArrayList<String> fatherArrayList;
+    private LinearLayoutManager linearLayoutManager;
+    private GrabMerchantRecycleAdapter mGrabMerchantRecycleAdapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_grabred_merchant,null);
+        mMerchantSwiperefresh = (SwipeRefreshLayout) view.findViewById(R.id.grabred_merchant_swiperefresh);
+        mMerchantRecycle = (RecyclerView) view.findViewById(R.id.grabred_merchant_recycleview);
+        return view;
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mMerchantSwiperefresh.setColorSchemeResources(R.color.holo_blue_bright,R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        mMerchantSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mMerchantSwiperefresh.setRefreshing(false);
+            }
+        });
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mMerchantRecycle.setLayoutManager(linearLayoutManager);
+        arrayList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            arrayList.add("我是第" + i + "个条目");
+        }
+        fatherArrayList = new ArrayList<>();
+        fatherArrayList.addAll(arrayList);
+
+        mGrabMerchantRecycleAdapter = new GrabMerchantRecycleAdapter(getActivity(), fatherArrayList);
+        mMerchantRecycle.setAdapter(mGrabMerchantRecycleAdapter);
+
+
+        //滑动的监听
+        mMerchantRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisiblePosition >= linearLayoutManager.getItemCount()-1){
+                        fatherArrayList.addAll(arrayList);
+                        mGrabMerchantRecycleAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
+
+        mGrabMerchantRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Intent intent = new Intent(getActivity(),RedPersonalDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+}

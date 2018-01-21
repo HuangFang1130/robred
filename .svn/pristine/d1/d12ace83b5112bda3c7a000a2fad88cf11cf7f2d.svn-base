@@ -1,0 +1,2 @@
+include ':app', 'chat', ':pickerview', ':photopicker'
+include ':library'

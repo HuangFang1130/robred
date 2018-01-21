@@ -1,0 +1,112 @@
+package com.jiahehongye.robred.adapter;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.FreshNewsDetailActivity;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+
+import java.util.ArrayList;
+
+/**
+ * Created by huangjunhui on 2016/12/6.15:34
+ */
+public class NewsCommentRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    //item类型
+    public static final int ITEM_TYPE_HEADER = 0;
+    public static final int ITEM_TYPE_CONTENT = 1;
+    public static final int ITEM_TYPE_FOOT = 2;
+
+    private FreshNewsDetailActivity mActivity;
+    private ArrayList<String> fatherArrayList;
+    private MyItemClickListener mItemClickListener;
+
+    public NewsCommentRecycleAdapter(FreshNewsDetailActivity freshNewsDetailActivity, ArrayList<String> fatherArrayList) {
+        this.fatherArrayList = fatherArrayList;
+        this.mActivity = freshNewsDetailActivity;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case ITEM_TYPE_HEADER:
+                View headView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_news_detail_head, null);
+                return new NewsCommentHeadViewHolder(headView);
+            case ITEM_TYPE_CONTENT:
+                View contentView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_news_detail_content, null);
+                return new NewsCommentContentViewHolder(contentView, mItemClickListener);
+            case ITEM_TYPE_FOOT:
+                View footView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home_foot, null);
+                return new NewsCommentFootViewHolder(footView);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (getItemCount() == 1) {
+            return ITEM_TYPE_HEADER;
+        }
+        if (position == 0) {
+            return ITEM_TYPE_HEADER;
+        } else if (position == getItemCount() - 1) {
+            return ITEM_TYPE_FOOT;
+        } else {
+            return ITEM_TYPE_CONTENT;
+        }
+    }
+
+
+    public void setOnItemClickListener(MyItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+    @Override
+    public int getItemCount() {
+        if (fatherArrayList != null && fatherArrayList.size() > 0) {
+            return fatherArrayList.size() + 2;
+        } else {
+            return 1;
+        }
+    }
+
+    class NewsCommentHeadViewHolder extends RecyclerView.ViewHolder {
+
+        public NewsCommentHeadViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    class NewsCommentContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyItemClickListener mItemClickListener;
+
+        public NewsCommentContentViewHolder(View itemView, MyItemClickListener mItemClickListener) {
+            super(itemView);
+            this.mItemClickListener = mItemClickListener;
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mItemClickListener!=null){
+                mItemClickListener.onItemClick(v,getPosition());
+            }
+        }
+    }
+
+    class NewsCommentFootViewHolder extends RecyclerView.ViewHolder {
+
+        public NewsCommentFootViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+}

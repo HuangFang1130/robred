@@ -1,0 +1,67 @@
+package com.jiahehongye.robred.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+/**
+ * Created by huangjunhui on 2016/12/5.13:48
+ */
+public class ContanctDetailActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+
+    private ImageView mIvBack;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        setContentView(R.layout.activity_contanct_detail);
+
+        ImageView mIvBack = (ImageView) findViewById(R.id.contanct_detail_iv_back_row);
+        TextView mTvMore = (TextView) findViewById(R.id.contanct_detail_more_title);
+
+        RadioGroup mRgRoot = (RadioGroup) findViewById(R.id.contanct_detail_rg_root);
+        mIvBack.setOnClickListener(this);
+        mTvMore.setOnClickListener(this);
+        mRgRoot.setOnCheckedChangeListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.contanct_detail_iv_back_row:
+                finish();
+                break;
+            case R.id.contanct_detail_more_title:
+                Intent intent = new Intent(this, ContanctMoreActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.contanct_detail_rb_hot://热点
+
+                break;
+            case R.id.contanct_detail_rb_gift://礼物
+
+                break;
+            case R.id.contanct_detail_rb_report://举报
+                Intent intent = new Intent(this,ContanctReportActivty.class);
+                startActivity(intent);
+                break;
+        }
+    }
+}

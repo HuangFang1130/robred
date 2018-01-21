@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="item_position" type="id" />
+    <item type="id" name="tag_first"></item>
+    <item type="id" name="tag_second"></item>
+    <item type="id" name="tag_num"></item>
+    <item type="id" name="tag_adapter"></item>
+    <item type="id" name="tag_holder"></item>
+</resources>
+

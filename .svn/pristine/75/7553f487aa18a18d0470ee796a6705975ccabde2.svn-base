@@ -1,0 +1,276 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80">
+
+        <RelativeLayout
+            android:id="@+id/shouhuodizhi_back"
+            android:layout_width="@dimen/px_80"
+            android:layout_height="@dimen/px_80">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_30"
+                android:src="@mipmap/row_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="收货地址"
+            android:textColor="@color/black"
+            android:textSize="@dimen/px_text_34" />
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/feed_up"
+            android:layout_width="@dimen/px_80"
+            android:layout_height="@dimen/px_80"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="提交"
+                android:textColor="@color/red"
+                android:textSize="@dimen/px_text_30"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/WHITE"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="收件人"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_oneyuan_address_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入收件人姓名"
+            android:maxLength="6"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/WHITE"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="手机号"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_oneyuan_address_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@null"
+            android:digits="1234567890"
+            android:gravity="center_vertical"
+            android:hint="请输入11位手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/WHITE"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="省份"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_oneyuan_address_province"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入省份"
+            android:maxLength="6"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/WHITE"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="城市"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_oneyuan_address_city"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入城市"
+            android:maxLength="6"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/WHITE"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="区县/街道"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_oneyuan_address_town"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入区县/街道"
+            android:maxLength="6"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/WHITE"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="详细地址"
+            android:textColor="#333333"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_oneyuan_address_detail"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="请输入详细地址"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_oneyuan_address_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_shape_register"
+        android:text="提交"
+        android:textColor="@color/WHITE"
+        android:textSize="15sp" />
+
+</LinearLayout>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.jiahehongye.robred.view.MySquareLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/yuanjiao"
+        android:orientation="vertical" >
+
+        <!-- 上半部分 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="510"
+            android:orientation="vertical" >
+
+            <!-- 标题 -->
+
+            <TextView
+                android:id="@+id/tv_oneyuan_home_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="80"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Apple iPhone6s Plus 64G 颜色随机"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <!-- 图片 -->
+
+            <ImageView
+                android:id="@+id/iv_oneyuan_home_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="350"
+                android:scaleType="fitXY"
+                android:src="@mipmap/iphone6s" />
+
+            <!-- 内容 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="80"
+                android:orientation="horizontal" >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="450" >
+
+                    <!-- 金额符号￥ -->
+
+                    <TextView
+                        android:id="@+id/tv_oneyuan_home_item_yuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/tv_oneyuan_home_item_price"
+                        android:layout_centerVertical="true"
+                        android:text="￥"
+                        android:textColor="#4ebfa1"
+                        android:textSize="15dp" />
+
+                    <!-- 价格 -->
+
+                    <TextView
+                        android:id="@+id/tv_oneyuan_home_item_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_oneyuan_home_item_yuan"
+                        android:text="1"
+                        android:textColor="#4ebfa1"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <!-- 我要参与按钮 -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="150"
+                    android:focusable="false"
+            android:focusableInTouchMode="false"
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" >
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/btn_onyuan_home_item_join"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="6"
+                        android:background="@drawable/selector_shape_register"
+                        android:gravity="center"
+                        android:text="我要参与"
+                        android:focusable="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/px_text_24" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" >
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 中间分割线 -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/basebackground" />
+
+        <!-- 下半部分 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="200"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="70" >
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_home_item_renci"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_oneyuan_home_item_totalNum"
+                    android:layout_centerVertical="true"
+                    android:text="总需人次  "
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+
+                <!-- 总需人次 -->
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_home_item_totalNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tv_oneyuan_home_item_renci"
+                    android:text="6888"
+                    android:textColor="#4ebfa1"
+                    android:textSize="20dp" />
+
+                <!-- 剩余人次 -->
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_home_item_leftNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="4950"
+                    android:textColor="#4ebfa1"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_home_item_shengyu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_oneyuan_home_item_leftNum"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_oneyuan_home_item_leftNum"
+                    android:text="剩余人次  "
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <!-- 进度条 -->
+
+            <ProgressBar
+                android:id="@+id/pb_oneyuan_home_item_bar"
+                style="@style/ProgressBar_Mini"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:focusable="false"
+            android:focusableInTouchMode="false"
+                android:progress="90" />
+
+            <!-- 商品详情介绍 -->
+
+            <TextView
+                android:id="@+id/tv_oneyuan_home_item_detail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="120"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="5.5英寸Retina HD显示屏，3D Touch，突破性的设计，极其简单、漂亮，妙不可言！"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </com.jiahehongye.robred.view.MySquareLinearLayout>
+
+</RelativeLayout>

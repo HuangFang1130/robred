@@ -1,0 +1,156 @@
+package com.jiahehongye.robred.activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+public class GoldRankActivity extends BaseActivity {
+
+    private RelativeLayout mBack;
+    private ListView goldrank_list;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.white);
+        setContentView(R.layout.activity_gold_rank);
+
+        mBack = (RelativeLayout) findViewById(R.id.goldrank_rl_back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+        goldrank_list = (ListView) findViewById(R.id.goldrank_list);
+
+        Adapter adapter = new Adapter();
+        goldrank_list.setAdapter(adapter);
+
+    }
+
+
+    private class Adapter extends BaseAdapter{
+
+        private final int TYPE_ONE=0,TYPE_TWO=1,TYPE_THREE=2,TYPE_FOUR=3,TYPE_COUNT=4;
+
+        @Override
+        public int getCount() {
+            return 10;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+
+            return TYPE_COUNT;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position ==0){
+                return TYPE_ONE;
+            }else if (position == 1){
+                return TYPE_TWO;
+            }else if (position == 2){
+                return TYPE_THREE;
+            }else {
+                return TYPE_FOUR;
+            }
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder1 vh1=null;
+            ViewHolder2 vh2=null;
+            ViewHolder3 vh3=null;
+            ViewHolder4 vh4=null;
+            int type=getItemViewType(position);
+            if(convertView==null){
+                switch (type) {
+                    case TYPE_ONE:
+                        vh1=new ViewHolder1();
+                        convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.gold_rank_item, null);
+                        vh1.rank_number = (TextView) convertView.findViewById(R.id.rank_number1);
+                        convertView.setTag(vh1);
+                        break;
+                    case TYPE_TWO:
+                        vh2=new ViewHolder2();
+                        convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.gold_rank_item2, null);
+                        convertView.setTag(vh2);
+                        break;
+                    case TYPE_THREE:
+                        vh3=new ViewHolder3();
+                        convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.gold_rank_item3, null);
+                        convertView.setTag(vh3);
+                        break;
+                    case TYPE_FOUR:
+                        vh4=new ViewHolder4();
+                        convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.gold_rank_item4, null);
+                        vh4.rank_number = (TextView) convertView.findViewById(R.id.rank_number4);
+                        convertView.setTag(vh4);
+                        break;
+                }
+            }else {
+                switch (type) {
+                    case TYPE_ONE:
+                        vh1=(ViewHolder1) convertView.getTag();
+                        break;
+                    case TYPE_TWO:
+                        vh2=(ViewHolder2) convertView.getTag();
+                        break;
+                    case TYPE_THREE:
+                        vh3=(ViewHolder3) convertView.getTag();
+                        break;
+                    case TYPE_FOUR:
+                        vh4=(ViewHolder4) convertView.getTag();
+                        break;
+                }
+            }
+            switch (type){
+                case TYPE_ONE:
+                    break;
+                case TYPE_TWO:
+                    break;
+                case TYPE_THREE:
+                    break;
+                case TYPE_FOUR:
+                    vh4.rank_number.setText("NO."+(position+1));
+                    break;
+            }
+            return convertView;
+        }
+        class ViewHolder1{
+            TextView rank_number;
+        }
+        class ViewHolder2{
+            TextView rank_number;
+        }
+        class ViewHolder3{
+            TextView rank_number;
+        }
+        class ViewHolder4{
+            TextView rank_number;
+        }
+    }
+}

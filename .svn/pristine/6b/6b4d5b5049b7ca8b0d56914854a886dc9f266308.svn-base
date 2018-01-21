@@ -1,0 +1,102 @@
+package com.jiahehongye.robred.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jiahehongye.robred.BaseFragment;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.ContanctDetailActivity;
+import com.jiahehongye.robred.adapter.AddressRecycleAdapter;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Administrator on 2016/11/30.
+ *
+ * 通讯录
+ */
+public class AddressFragment extends BaseFragment {
+
+    private SwipeRefreshLayout mAddressSwiperefresh;
+    private RecyclerView mAddressRecycle;
+    private ArrayList<String> arrayList;
+    private ArrayList<String> fatherArrayList;
+    private LinearLayoutManager linearLayoutManager;
+    private AddressRecycleAdapter addressRecycleAdapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mMainUi.applyKitKatTranslucency();
+        mMainUi.mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        View view = inflater.from(mMainUi).inflate(R.layout.activity_address,null);
+        mAddressSwiperefresh = (SwipeRefreshLayout) view.findViewById(R.id.address_swiperefresh);
+        mAddressRecycle = (RecyclerView) view.findViewById(R.id.address_recycleview);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAddressSwiperefresh.setColorSchemeResources(R.color.holo_blue_bright,R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        mAddressSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAddressSwiperefresh.setRefreshing(false);
+            }
+        });
+        arrayList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            arrayList.add("我是第" + i + "个条目");
+        }
+        fatherArrayList = new ArrayList<>();
+        fatherArrayList.addAll(arrayList);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mAddressRecycle.setLayoutManager(linearLayoutManager);
+        mAddressRecycle.setItemAnimator(new DefaultItemAnimator());
+        addressRecycleAdapter = new AddressRecycleAdapter(mMainUi,fatherArrayList);
+        mAddressRecycle.setAdapter(addressRecycleAdapter);
+        //滑动的监听
+        mAddressRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisiblePosition >= linearLayoutManager.getItemCount()-1){
+                        fatherArrayList.addAll(arrayList);
+                        addressRecycleAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
+
+        addressRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Intent intent = new Intent(getActivity(), ContanctDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            mMainUi.applyKitKatTranslucency();
+            mMainUi.mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        }
+    }
+}

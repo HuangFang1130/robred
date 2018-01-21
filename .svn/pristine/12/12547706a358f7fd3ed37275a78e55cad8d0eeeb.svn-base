@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context="com.jiahehongye.robred.activity.LingQuJiLuActivity">
+
+    <RelativeLayout
+        android:background="@color/home_state_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80">
+
+        <RelativeLayout
+            android:id="@+id/gift_jilu_back"
+            android:layout_width="@dimen/px_80"
+            android:layout_height="@dimen/px_80">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_30"
+                android:src="@mipmap/left_row" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="兑换明细"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_text_34" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/gift_middle_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_200"
+        android:background="@color/home_state_color"
+        android:gravity="center"
+        android:text="￥0.0"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_text_70" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_60"
+        android:background="#F2F2F2"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/px_30"
+        android:text="礼物兑换明细"
+        android:textColor="#666666"
+        android:textSize="@dimen/px_text_26" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/gift_swiperefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/gift_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:scrollbars="@null"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+package com.jiahehongye.robred.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+/**
+ * Created by huangjunhui on 2016/12/9.11:19
+ */
+public class RegisterReceiverVerificyActivity extends BaseActivity implements View.OnClickListener {
+
+    private EditText mEtVerificyCode;
+    private EditText mEtVerificyPassword;
+    private TextView mTvTimer;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        setContentView(R.layout.activity_register_receiver_verificy);
+        initView();
+    }
+
+    private void initView() {
+        ImageView mIvBack = (ImageView) findViewById(R.id.register_verificy_iv_colse);
+        mEtVerificyCode = (EditText) findViewById(R.id.register_verificy_et_code);
+        mEtVerificyPassword = (EditText) findViewById(R.id.register_verificy_et_password);
+        mTvTimer = (TextView) findViewById(R.id.register_verificy_tv_timer);
+        Button mBtnRegister = (Button) findViewById(R.id.register_verificy_btn_register);
+
+        mIvBack.setOnClickListener(this);
+        mBtnRegister.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.register_verificy_iv_colse :
+                finish();
+                break;
+            case R.id.register_verificy_btn_register://注册
+
+                break;
+        }
+    }
+}

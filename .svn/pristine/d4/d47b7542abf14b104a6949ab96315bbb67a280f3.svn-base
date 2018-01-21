@@ -1,0 +1,284 @@
+package com.jiahehongye.robred.adapter;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
+import com.hyphenate.easeui.utils.EaseSmileUtils;
+import com.hyphenate.exceptions.HyphenateException;
+import com.hyphenate.util.DateUtils;
+import com.jiahehongye.robred.MainActivity;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.bean.MessageResult;
+import com.jiahehongye.robred.db.Model;
+import com.jiahehongye.robred.db.UserDao;
+import com.jiahehongye.robred.interfaces.MyHeadViewClickListener;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.utils.UIUtils;
+import com.jiahehongye.robred.view.CustomMessageLinearlayout;
+import com.jiahehongye.robred.view.GlideRoundTransform;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by huangjunhui on 2016/12/5.18:49
+ */
+public class MessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    //item类型
+    public static final int ITEM_TYPE_HEADER = 0;
+    public static final int ITEM_TYPE_CONTENT = 1;
+    public static final int ITEM_TYPE_FOOT = 2;
+    private List<EMConversation> emConversations;
+    private MainActivity mActivity;
+    private View footView;
+    private MyItemClickListener mItemClickListener;
+    private MyHeadViewClickListener mHeadClickListener;
+    private final UserDao userDao;
+    private String interactiveMessageIsRead = "0";
+    private String notifyMessageIsRead= "0";
+    private String systemMessageIsRead= "0";
+    private String systemDate ="";
+
+
+    public MessageRecycleAdapter(MainActivity mMainUi, List<EMConversation> emConversations) {
+        this.mActivity = mMainUi;
+        this.emConversations = emConversations;
+        userDao = new UserDao(UIUtils.getContext());
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        switch (viewType) {
+            case ITEM_TYPE_HEADER:
+                View headView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_message_head, null);
+                return new MessageHeadViewHolder(headView, mHeadClickListener);
+            case ITEM_TYPE_CONTENT:
+                View contentView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_message_content, null);
+                return new MessageContentViewHolder(contentView, mItemClickListener);
+            case ITEM_TYPE_FOOT:
+                footView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home_foot, null);
+                hintFootView();
+                return new MessageFootViewHolder(footView);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if (holder instanceof MessageContentViewHolder) {
+            MessageContentViewHolder contentHolder = (MessageContentViewHolder) holder;
+            EMConversation emConversation = emConversations.get(position - 1);
+
+            String userName = emConversation.getUserName();
+            contentHolder.hTvName.setText(userName);
+
+            if (emConversation.getUnreadMsgCount() > 0) {
+                contentHolder.hTvUnReader.setText(String.valueOf(emConversation.getUnreadMsgCount()));
+                contentHolder.hTvUnReader.setVisibility(View.VISIBLE);
+            } else {
+                contentHolder.hTvUnReader.setVisibility(View.INVISIBLE);
+            }
+
+            if (emConversation.getAllMsgCount() != 0) {
+                EMMessage lastMessage = emConversation.getLastMessage();
+
+                String Avatar = "";
+                String Name ="";
+                if(lastMessage.getTo().equals(EMClient.getInstance().getCurrentUser())){
+                    try {
+                        Avatar = lastMessage.getStringAttribute("Avatar");
+                        Name = lastMessage.getStringAttribute("Name");
+                    } catch (HyphenateException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    try {
+                        Avatar = lastMessage.getStringAttribute("Avatar2");
+                        Name = lastMessage.getStringAttribute("Name2");
+                    } catch (HyphenateException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                EaseUser user = new EaseUser(userName);
+                user.setAvatar(Avatar);
+                user.setNick(Name);
+                new Model(UIUtils.getContext()).saveContact(user);
+
+                Glide.with(UIUtils.getContext()).load(Avatar).transform(new GlideRoundTransform(UIUtils.getContext())).into(contentHolder.hIvAvatar);
+
+                contentHolder.hTvName.setText(Name);
+
+
+                String content = null;
+                contentHolder.hTvMessage.setText(EaseSmileUtils.getSmiledText(mActivity, EaseCommonUtils.getMessageDigest(lastMessage, (mActivity))),
+                        TextView.BufferType.SPANNABLE);
+                if (content != null) {
+                    contentHolder.hTvMessage.setText(content);
+                }
+                contentHolder.hTvMessageDate.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
+            }
+
+        }
+
+        if(holder instanceof MessageHeadViewHolder){
+            MessageHeadViewHolder headHolder = (MessageHeadViewHolder) holder;
+
+            if(interactiveMessageIsRead.equals("0")){
+                headHolder.mMessageInteraction.hideUnreadMsgView();
+            }else {
+                headHolder.mMessageInteraction.showUnreadMsgView();
+            }
+
+
+            if(notifyMessageIsRead.equals("0")){
+                headHolder.mMessageNotify.hideUnreadMsgView();
+            }else {
+                headHolder.mMessageNotify.showUnreadMsgView();
+            }
+
+            if(systemMessageIsRead.equals("0")){
+                headHolder.mMessageSystem.hideUnreadMsgView();
+            }else {
+                headHolder.mMessageSystem.showUnreadMsgView();
+            }
+
+            headHolder.mMessageSystem.setDate(systemDate);
+            headHolder.mMessageInteraction.setDate(systemDate);
+            headHolder.mMessageNotify.setDate(systemDate);
+        }
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (getItemCount() == 1) {
+            return ITEM_TYPE_HEADER;
+        }
+        if (position == 0) {
+            return ITEM_TYPE_HEADER;
+        } else if (position == emConversations.size() + 1) {
+            return ITEM_TYPE_FOOT;
+        } else {
+            return ITEM_TYPE_CONTENT;
+        }
+    }
+
+    public void showFootView() {
+        if (footView != null) {
+            footView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hintFootView() {
+        if (footView != null) {
+            footView.setVisibility(View.GONE);
+        }
+    }
+
+    public void setOnItemClickListener(MyItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public void setOnHeadClickListener(MyHeadViewClickListener listener) {
+        this.mHeadClickListener = listener;
+    }
+
+    @Override
+    public int getItemCount() {
+        if (emConversations != null && emConversations.size() > 0) {
+            return emConversations.size() + 2;
+        } else {
+            return 1;
+        }
+    }
+
+    public void setHeadDate(MessageResult messageResult) {
+        interactiveMessageIsRead = messageResult.getInteractiveMessageIsRead();
+        notifyMessageIsRead = messageResult.getNotifyMessageIsRead();
+        systemMessageIsRead = messageResult.getSystemMessageIsRead();
+        systemDate = messageResult.getSystemDate();
+
+    }
+
+    class MessageHeadViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyHeadViewClickListener mHeadClickListener;
+        private CustomMessageLinearlayout mMessageNotify;
+        private CustomMessageLinearlayout mMessageInteraction;
+        private CustomMessageLinearlayout mMessageSystem;
+
+        public MessageHeadViewHolder(View itemView, MyHeadViewClickListener mHeadClickListener) {
+            super(itemView);
+            this.mHeadClickListener = mHeadClickListener;
+            mMessageNotify = (CustomMessageLinearlayout) itemView.findViewById(R.id.message_notification);
+            mMessageInteraction = (CustomMessageLinearlayout) itemView.findViewById(R.id.message_interaction);
+            mMessageSystem = (CustomMessageLinearlayout) itemView.findViewById(R.id.message_system);
+
+            mMessageNotify.setOnClickListener(this);
+            mMessageInteraction.setOnClickListener(this);
+            mMessageSystem.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mHeadClickListener != null) {
+                mHeadClickListener.onHeadClick(v);
+            }
+        }
+    }
+
+    class MessageContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyItemClickListener mItemClickListener;
+        private ImageView hIvAvatar;
+        private RelativeLayout hRlView;
+        private TextView hTvUnReader;
+        private TextView hTvName;
+        private TextView hTvMessage;
+        private TextView hTvMessageDate;
+
+        public MessageContentViewHolder(View itemView, MyItemClickListener mItemClickListener) {
+            super(itemView);
+            this.mItemClickListener = mItemClickListener;
+            hIvAvatar = (ImageView) itemView.findViewById(R.id.message_iv_icddon);
+//            hRlView = (RelativeLayout) itemView.findViewById(R.id.message_rl_view);
+            hTvUnReader = (TextView) itemView.findViewById(R.id.message_tv_unreade_number);
+            hTvName = (TextView) itemView.findViewById(R.id.message_tv_type_name);
+            hTvMessage = (TextView) itemView.findViewById(R.id.message_tv_type_des);
+            hTvMessageDate = (TextView) itemView.findViewById(R.id.message_tv_date);
+
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getPosition());
+            }
+        }
+    }
+
+    class MessageFootViewHolder extends RecyclerView.ViewHolder {
+
+        public MessageFootViewHolder(View itemView) {
+            super(itemView);
+            itemView.setVisibility(View.GONE);
+        }
+    }
+}

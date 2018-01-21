@@ -1,0 +1,186 @@
+package com.jiahehongye.robred.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.adapter.FreshNewsRecycleAdapter;
+import com.jiahehongye.robred.adapter.NewsCommentRecycleAdapter;
+import com.jiahehongye.robred.bean.NewsBean;
+import com.jiahehongye.robred.cook.CookieJarImpl;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.view.MyProgressDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+/**
+ * Created by huangjunhui on 2016/12/6.15:19
+ *
+ * 新闻详情页
+ */
+public class FreshNewsDetailActivity extends BaseActivity implements View.OnClickListener {
+
+    private RecyclerView mCommentRecycleView;
+    private LinearLayoutManager linearLayoutManager;
+    private ArrayList<String> fatherArrayList;
+    private ArrayList<String> arrayList;
+    private NewsCommentRecycleAdapter newsCommentRecycleAdapter;
+    private WebView freshnews_detail_webview;
+    private String id;
+
+    private static final int GET_ALL = 0000;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case GET_ALL:
+                    String s = (String) msg.obj;
+                    try {
+                        JSONObject object = new JSONObject(s);
+                        if (object.getString("result").equals("success")) {
+                            JSONObject data = new JSONObject(object.getString("data"));
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_white_color);
+        setContentView(R.layout.activity_fresh_news_detail);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            id = bundle.getString("title");
+            Toast.makeText(FreshNewsDetailActivity.this, id, Toast.LENGTH_SHORT).show();
+        }
+        mCommentRecycleView = (RecyclerView) findViewById(R.id.comment_recycleview);
+        freshnews_detail_webview = (WebView) findViewById(R.id.freshnews_detail_webview);
+        RelativeLayout mRlComment= (RelativeLayout) findViewById(R.id.comment_rl_dd);
+        getdata();
+        mRlComment.setOnClickListener(this);
+        linearLayoutManager = new LinearLayoutManager(this);
+        mCommentRecycleView.setLayoutManager(linearLayoutManager);
+        mCommentRecycleView.setItemAnimator(new DefaultItemAnimator());
+        arrayList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            arrayList.add("我是第" + i + "个条目");
+        }
+        fatherArrayList = new ArrayList<>();
+        fatherArrayList.addAll(arrayList);
+
+        newsCommentRecycleAdapter = new NewsCommentRecycleAdapter(this, fatherArrayList);
+
+        mCommentRecycleView.setAdapter(newsCommentRecycleAdapter);
+
+        newsCommentRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+//                Toast.makeText(FreshNewsDetailActivity.this,"点击了"+postion,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FreshNewsDetailActivity.this,CommentSingleActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.comment_rl_dd:
+                Intent intent = new Intent(this,CommentAllActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+
+    /**
+     *获取分类新闻列表
+     */
+    private PersistentCookieStore persistentCookieStore;
+    private MyProgressDialog animDialog;
+    private Call call;
+
+    private void getdata() {
+
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        persistentCookieStore = new PersistentCookieStore(FreshNewsDetailActivity.this);
+        CookieJarImpl cookieJarImpl = new CookieJarImpl(persistentCookieStore);
+        builder.cookieJar(cookieJarImpl);
+        OkHttpClient client = builder.build();
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id",id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(Constant.JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Constant.NEWS_DETAIL)
+                .post(body)
+                .build();
+
+
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                FreshNewsDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FreshNewsDetailActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Log.e("登陆返回：", result);
+
+                Message msg = handler.obtainMessage();
+                msg.what = GET_ALL;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        });
+
+    }
+}

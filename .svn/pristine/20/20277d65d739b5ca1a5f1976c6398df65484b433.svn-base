@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WHITE" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:id="@+id/iv_oneyuan_past_lasticon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_wangqi_3x" />
+
+        <RelativeLayout
+            android:id="@+id/rl_oneyuan_past_goto"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_oneyuan_past_lasticon" >
+
+            <TextView
+                android:id="@+id/tv_oneyuan_past_lastissue"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="第-期"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_oneyuan_past_goto"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/goto_3x" />
+
+            <TextView
+                android:id="@+id/tv_oneyuan_past_lasttime"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_toLeftOf="@+id/iv_oneyuan_past_goto"
+                android:gravity="center_vertical"
+                android:text="-"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_oneyuan_past_lastday"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_oneyuan_past_lasticon"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:text="-"
+            android:textColor="#999999"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_winner_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rl_oneyuan_past_goto"
+            android:layout_below="@+id/rl_oneyuan_past_goto"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/lastwinner"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="获奖者："
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_past_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="幸运号码："
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_past_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textColor="#ff2448"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_oneyuan_past_havemessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/ll_oneyuan_past_message_half"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="获奖感言："
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_oneyuan_past_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="11111111111111111111111111111111111111111111"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_oneyuan_past_message_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:lineSpacingExtra="3dp"
+                    android:text="2222222222222222222222222222222222222222222222222222222222222"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+            </RelativeLayout>
+            
+            <RelativeLayout 
+                android:id="@+id/rl_oneyuan_past_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                
+                <TextView
+                            android:id="@+id/tv_oneyuan_past_visible_havemessage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="展开 ↓"
+                            android:textColor="#249fff"
+                            android:textSize="12sp" />
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <com.jiahehongye.robred.view.MySquareImageView
+                        android:id="@+id/iv_oneyuan_past_lastwinnerimage1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.jiahehongye.robred.view.MySquareImageView
+                        android:id="@+id/iv_oneyuan_past_lastwinnerimage2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.jiahehongye.robred.view.MySquareImageView
+                        android:id="@+id/iv_oneyuan_past_lastwinnerimage3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_past_visible_havephoto_open"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:text="展开 ↓"
+                            android:textColor="#249fff"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+            
+            <RelativeLayout 
+                android:id="@+id/rl_oneyuan_past_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <com.jiahehongye.robred.view.MySquareImageView
+                        android:id="@+id/iv_oneyuan_past_lastwinnerimage4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.jiahehongye.robred.view.MySquareImageView
+                        android:id="@+id/iv_oneyuan_past_lastwinnerimage5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.jiahehongye.robred.view.MySquareImageView
+                        android:id="@+id/iv_oneyuan_past_lastwinnerimage6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/tv_oneyuan_past_visible_havephoto_close"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:text="收起 ↑"
+                            android:textColor="#249fff"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+                
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ll_winner_message"
+            android:layout_alignLeft="@id/iv_oneyuan_past_lasticon"
+            android:layout_alignRight="@id/iv_oneyuan_past_lasticon"
+            android:layout_below="@+id/tv_oneyuan_past_lastday" >
+
+            <View
+                android:layout_width="4px"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@color/huise" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

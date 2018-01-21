@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/avertisement_iv"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iv_logo"
+        android:background="@android:color/transparent" />
+    <RelativeLayout android:id="@+id/adsRl"
+
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_above="@id/iv_logo"/>
+
+    <FrameLayout
+        android:id="@+id/layout_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/avertisement_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/px_30"
+            android:text=""
+            android:layout_marginTop="@dimen/px_80"
+            android:background="@drawable/bg_skip_corner"
+            android:textColor="#aaffffff"
+            android:textSize="@dimen/px_text_22"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_300"
+        android:layout_alignParentBottom="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_welcome_bottom" />
+
+</RelativeLayout>

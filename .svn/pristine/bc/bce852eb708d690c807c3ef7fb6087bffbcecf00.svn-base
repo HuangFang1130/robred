@@ -1,0 +1,64 @@
+package com.jiahehongye.robred.activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+public class HelpCenterActivity extends BaseActivity implements View.OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        applyKitKatTranslucency();
+        mTintManager.setStatusBarTintResource(R.color.home_state_color);
+        setContentView(R.layout.activity_help_center);
+
+        initView();
+    }
+
+    private RelativeLayout help_back;
+    private LinearLayout mBuyRules;
+    private LinearLayout mSnatchRules;
+    private LinearLayout mEnchashmentRules;
+    private LinearLayout mRobredRules;
+    private LinearLayout mWxServiceRules;
+    private void initView() {
+        help_back = (RelativeLayout) findViewById(R.id.helpcenter_rl_back);
+        mBuyRules = (LinearLayout) findViewById(R.id.helpcenter_ll_buy_rules);
+        mSnatchRules = (LinearLayout) findViewById(R.id.helpcenter_ll_snatch_rules);
+        mEnchashmentRules = (LinearLayout) findViewById(R.id.helpcenter_ll_enchashment_rules);
+        mRobredRules = (LinearLayout) findViewById(R.id.helpcenter_ll_robred_rules);
+        mWxServiceRules = (LinearLayout) findViewById(R.id.helpcenter_ll_wx_service);
+
+        help_back.setOnClickListener(this);
+        mBuyRules.setOnClickListener(this);
+        mSnatchRules.setOnClickListener(this);
+        mEnchashmentRules.setOnClickListener(this);
+        mRobredRules.setOnClickListener(this);
+        mWxServiceRules.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.helpcenter_rl_back:
+                finish();
+                break;
+            case R.id.helpcenter_ll_buy_rules:
+                break;
+            case R.id.helpcenter_ll_snatch_rules:
+                break;
+            case R.id.helpcenter_ll_enchashment_rules:
+                break;
+            case R.id.helpcenter_ll_robred_rules:
+                break;
+            case R.id.helpcenter_ll_wx_service:
+                break;
+        }
+    }
+}

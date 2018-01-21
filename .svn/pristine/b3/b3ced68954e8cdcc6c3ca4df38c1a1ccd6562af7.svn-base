@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/report_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:background="@color/home_white_color"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/report_iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_20"
+            android:scaleType="center"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/grabred_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="@string/report_tv_report"
+            android:textColor="@color/black"
+            android:textSize="@dimen/px_text_34" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:background="@color/view_background"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <TextView
+        android:background="@color/report_bg"
+        android:textSize="@dimen/px_text_30"
+        android:textColor="@color/report_tv_des"
+        android:paddingLeft="@dimen/px_20"
+        android:gravity="center_vertical"
+        android:text="@string/report_tv_issue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_70" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_sex"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_sex"
+            android:text="@string/report_tv_sex"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_infor"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_infor"
+            android:text="@string/report_tv_infor"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_discriminate"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_discriminate"
+            android:text="@string/report_tv_minzhu"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_advertisement"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_advertisement"
+            android:text="@string/report_tv_guanggao"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_rumor"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_rumor"
+            android:text="@string/report_tv_yaoyan"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_attack"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_attack"
+            android:text="@string/report_tv_gongji"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_lie"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_lie"
+            android:text="@string/report_tv_lie"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+        <View
+
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_alignParentBottom="true"
+            android:background="@color/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_65"
+        android:background="@color/white">
+
+        <CheckBox
+            android:id="@+id/report_cb_speak"
+            android:background="@drawable/report_checkbox_selector"
+            android:button="@null"
+            android:checked="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_26" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/report_cb_speak"
+            android:text="@string/report_tv_lungune"
+            android:textColor="@color/report_tv_bg"
+            android:textSize="@dimen/px_text_28" />
+
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/report_et_problem"
+        android:layout_marginTop="@dimen/px_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_20"
+        android:background="@drawable/report_edittext_shap"
+        android:gravity="top"
+        android:textColorHint="@color/freshnews_et_hint"
+        android:hint="@string/report_tv_ddd"
+        android:lines="5"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:textSize="@dimen/px_text_26" />
+
+
+    <Button
+        android:id="@+id/report_btn_submit"
+        android:layout_marginTop="@dimen/px_50"
+        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginLeft="@dimen/px_20"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/report_button_shape"
+        android:layout_height="@dimen/px_70"
+        android:layout_width="match_parent"
+        android:text="@string/report_tv_submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_text_30" />
+
+</LinearLayout>

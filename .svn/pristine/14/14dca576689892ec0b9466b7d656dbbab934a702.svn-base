@@ -1,0 +1,49 @@
+package com.jiahehongye.robred;
+
+import okhttp3.MediaType;
+
+/**
+ * Created by huangjunhui on 2016/12/16.10:10
+ */
+public class Constant {
+
+    public static final String RESULT = "result";
+    public static final String SUCCESS = "success";
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    public static final String LOGIN_ID = "login_id";//唯一标示
+
+    public static final String LOGIN_MEMBERRANK = "login_memberrank";//会员等级
+    public static final String LOGIN_MEMBERTYPE = "login_membertype";//会员类型
+    public static final String LOGIN_MOBILE = "login_mobile";//会员手机
+    public static final String LOGIN_REDINTEGRAL = "login_redintegral";//积分
+    public static final String LOGIN_PASSWORD = "login_password";//用户的密码
+    public static final String URL = "http://192.168.0.102:8080";
+    public static final String OLD_URL = "http://com4.17monkey.com/mobile";
+    // 个人信息
+    public static final String MEMBERINFO = OLD_URL + "/member/member/memberInfo.jhtml";
+    //我的礼物
+    public static final String MY_GIFT = URL+"/mobile/member/member/getGift.jhtml";
+    //获取账户总额
+    public static final String GET_TOTAL = URL+"/mobile/member/member/allAmountInfo.jhtml";
+
+    //获取新闻分类
+    public static final String NEWS_TYPE =URL+"/mobile/infor/getAllCategory.jhtml";
+
+    //获取分类新闻列表
+    public static final String NEWS_LIST =URL+"/mobile/infor/getInforByCategory.jhtml";
+
+    //获取新闻详情
+    public static final String NEWS_DETAIL =URL+"/mobile/infor/getInforContent.jhtml";
+
+    //钻石账户
+    public static final String DIAMOND_ACCOUNT = URL+"/mobile/member/member/getDiamondPackage.jhtml";
+
+    //登陆
+    public static final String LOGIN_URL = URL+"/mobile/common/memberLogin.jhtml";
+
+    //首页
+    public static final String HOME_PAGE = URL+"/mobile/homePage/getHomePage.jhtml";
+
+}

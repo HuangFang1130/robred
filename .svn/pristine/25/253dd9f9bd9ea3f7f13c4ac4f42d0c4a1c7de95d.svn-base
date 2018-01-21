@@ -1,0 +1,25 @@
+package com.jiahehongye.robred.activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.jiahehongye.robred.BaseActivity;
+import com.jiahehongye.robred.R;
+
+public class LingQuJiLuActivity extends BaseActivity {
+
+    private String type;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ling_qu_ji_lu);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            type = bundle.getString("type");
+            Toast.makeText(LingQuJiLuActivity.this, type, Toast.LENGTH_SHORT).show();
+        }
+    }
+}

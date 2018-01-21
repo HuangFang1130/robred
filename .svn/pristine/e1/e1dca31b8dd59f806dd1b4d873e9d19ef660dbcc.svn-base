@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\default_text_color.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\src\\main\\res\\color\\default_text_color.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\floder_name_color_selector.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\src\\main\\res\\color\\floder_name_color_selector.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\default_text_color.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\src\\main\\res\\color\\default_text_color.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
+        "source": "E:\\PhotoPicker-master\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "E:\\work_android3\\robred\\photopicker\\build\\intermediates\\res\\merged\\release\\color\\floder_name_color_selector.xml",
+        "source": "E:\\work_android3\\robred\\photopicker\\src\\main\\res\\color\\floder_name_color_selector.xml"
+    }
+]

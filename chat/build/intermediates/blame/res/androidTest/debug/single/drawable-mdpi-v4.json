@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\huang\\project\\robred\\chat\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\air_chatto_bg_focused.9.png",
+        "source": "D:\\huang\\project\\robred\\chat\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\air_chatto_bg_focused.9.png"
+    },
+    {
+        "merged": "E:\\project\\robred\\robred\\chat\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\air_chatto_bg_focused.9.png",
+        "source": "E:\\project\\robred\\robred\\chat\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\air_chatto_bg_focused.9.png"
+    },
+    {
+        "merged": "D:\\huang\\project\\robred\\chat\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\huang\\project\\robred\\chat\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\project\\robred\\robred\\chat\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "E:\\project\\robred\\robred\\chat\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
+    }
+]

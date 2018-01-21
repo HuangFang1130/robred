@@ -1,0 +1,38 @@
+package com.jiahehongye.robred.wxapi;
+
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.widget.Toast;
+
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
+
+/**
+ * Created by jiahe007 on 2016/12/29 0029.
+ */
+public class WXEntryActivity extends WXCallbackActivity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
+
+    @Override
+    public void onReq(BaseReq req) {
+        super.onReq(req);
+    }
+
+    //微信回调
+    @Override
+    public void onResp(BaseResp resp) {   //分享之后的回调
+
+
+        switch ( resp.errCode  ) {
+            case  BaseResp.ErrCode.ERR_OK : //正确返回
+                Toast.makeText(this, "微信分享成功回调了111", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        super.onResp(resp);
+    }
+}

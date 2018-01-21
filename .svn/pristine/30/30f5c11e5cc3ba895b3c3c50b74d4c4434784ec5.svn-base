@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="RED">#ff1943</color>
+    <color name="WHITE">#FFFFFF</color>
+    <color name="huise">#F3F2F1</color>
+    //纯色
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000FF</color>
+
+    //线条的颜色
+    <color name="view_background">#ccc</color>
+
+    //swiperefreshlayout 的样式
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_orange_light">#ffffbb33</color>
+    <color name="holo_red_light">#ffff4444</color>
+
+    //home页
+    <color name="home_state_color">#ff2448</color>
+    <color name="home_personal_information">#ff2448</color>
+    <color name="home_white_color">#fff</color>
+    <color name="home_level_color">#1fd2ff</color>
+    <color name="home_white_tv_color">#fff</color>
+    <color name="home_rg_color">#f7f7f7</color>
+    <color name="home_giftware_color">#4ccc</color>
+    <color name="home_line_color">#ff4040</color>
+    <color name="home_user_name">#000</color>
+
+    //富豪榜页
+
+
+    //抢红包页
+    <color name="grabred_state_color">#fff</color>
+
+
+    //登录页
+    <color name="login_tv_title">#fff</color>
+    <color name="login_tv_thired">#B2BDBF</color>
+    <color name="login_bt_register">#333333</color>
+    <color name="login_et_hint">#ccc</color>
+    <color name="login_et_content">#000</color>
+
+    //注册
+    <color name="register_tv_color">#808080</color>
+
+    //重置密码
+    <color name="reset_background">#4ccc</color>
+    <color name="reset_tv_color">#808080</color>
+    <color name="register_des_color" >#ccc</color>
+    <color name="home_content_des">#ccc</color>
+    <color name="home_content_member">#ff7c24</color>
+
+    <color name="basebackground">#F2F2F2</color>
+
+    //富豪榜
+    <color name="billion_tv_des">#4d4d4d</color>
+    <color name="billion_tv_ss">#666</color>
+    <color name="billion_view_bg">#4ccc</color>
+    <color name="billion_tv_orige">#ff9124</color>
+    <color name="grabred_tv_color">#666</color>
+    <color name="grabred_tv_dd">#b3b3b3</color>
+    <color name="grabred_state">#999</color>
+
+
+    <color name="sendred_tv_personal">#333</color>
+    <color name="sendred_et_hint">#ccc</color>
+    <color name="sendred_tv_current">#b3b3b3</color>
+    <color name="sendred_tv_change">#f56325</color>
+    <color name="sendred_view_bg">#4ccc</color>
+
+
+    <color name="blue_corn">#24B4E1</color>
+    <color name="gold_color">#FCA000</color>
+    <color name="fengexian">#DEDEDE</color>
+    <color name="woman_back">#faa9a4</color>
+    <color name="man_back">#1fd2ff</color>
+    <color name="sendred_tv_ge">#4d4d4d</color>
+    <color name="sendred_tv_des">#666</color>
+    <color name="sendred_tv_red">#ff2448</color>
+
+    //新鲜事
+    <color name="freshnews_et_hint">#b3b3b3</color>
+    <color name="freshnews_ll_bg">#4ccc</color>
+    <color name="freshnews_tv_content">#333</color>
+    <color name="freshnews_comment_bg">#f7f7f7</color>
+    <color name="report_bg">#4ccc</color>
+    <color name="report_tv_des">#4d4d4d</color>
+    <color name="report_tv_bg">#010101</color>
+
+    //修改个人资料
+    <color name="personal_textview">#4d4d4d</color>
+    <color name="personal_hint">#24A5FF</color>
+
+    <color name="transparent_background">#50000000</color>
+
+    <color name="navpage">#FFE1E8EB</color>
+</resources>

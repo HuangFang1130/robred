@@ -1,0 +1,347 @@
+package com.jiahehongye.robred.fragment;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.google.gson.Gson;
+import com.jiahehongye.robred.BaseFragment;
+import com.jiahehongye.robred.Constant;
+import com.jiahehongye.robred.R;
+import com.jiahehongye.robred.activity.DFTTAdvActivity;
+import com.jiahehongye.robred.activity.DFTTNewsDetailActivity;
+import com.jiahehongye.robred.adapter.HomeChildFragmentRecycleAdapter;
+import com.jiahehongye.robred.bean.DFTTAdvResult;
+import com.jiahehongye.robred.bean.DFTTNewsResult;
+import com.jiahehongye.robred.bean.DFTTTitleResult;
+import com.jiahehongye.robred.cook.PersistentCookieStore;
+import com.jiahehongye.robred.interfaces.MyItemClickListener;
+import com.jiahehongye.robred.utils.LogUtil;
+import com.jiahehongye.robred.utils.SPUtils;
+import com.jiahehongye.robred.utils.UIUtils;
+import com.jiahehongye.robred.view.MyProgressDialog;
+import com.songheng.newsapisdk.sdk.apiservice.DFTTAdsApiService;
+import com.songheng.newsapisdk.sdk.apiservice.DFTTNewsApiService;
+import com.songheng.newsapisdk.sdk.apiservice.listener.DfttApiServiceCallBack;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Response;
+
+/**
+ * Created by huangjunhui on 2017/5/18.10:34
+ */
+public class HomeChildFragment extends BaseFragment {
+    private static final int GET_HOME = 0000;
+    private static final int GET_HOME_LIST = 200;
+    private static final int GET_ADV = 400;
+    private int pagerNamber = 1;
+    private ArrayList<DFTTNewsResult.DataBean> fatherListDate;
+    private boolean isLogin;
+    private HomeChildFragmentRecycleAdapter mHomeRecycleAdapter;
+    private PersistentCookieStore persistentCookieStore;
+    private String isup;
+    private String type;
+    private String name;
+    private MyProgressDialog animDialog;
+    private View contentView;
+    private SwipeRefreshLayout mHomeHeadSwiperefresh;
+    private RecyclerView mHomeHeadRecycleView;
+    private LinearLayoutManager linearLayoutManager;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+
+                case GET_HOME_LIST:
+//                    if (animDialog.isShowing()) {
+//                        animDialog.dismiss();
+//                    }
+                    if (mHomeHeadSwiperefresh != null) {
+                        if (mHomeHeadSwiperefresh.isRefreshing()) {
+                            mHomeHeadSwiperefresh.setRefreshing(false);
+                        }
+                    }
+                    String result = (String) msg.obj;
+                    DFTTNewsResult dfttNewsResult = new Gson().fromJson(result, DFTTNewsResult.class);
+                    data = dfttNewsResult.getData();
+                    requestAdvDate(pagesdssss);
+//                    if (fatherListDate == null) {
+//                        fatherListDate = new ArrayList<>();
+//                    }
+//                    fatherListDate.addAll(data);
+//                    mHomeRecycleAdapter.notifyDataSetChanged();
+
+
+                    break;
+                case GET_ADV:
+//                    if (animDialog.isShowing()) {
+//                        animDialog.dismiss();
+//                    }
+                    if (mHomeHeadSwiperefresh != null) {
+                        if (mHomeHeadSwiperefresh.isRefreshing()) {
+                            mHomeHeadSwiperefresh.setRefreshing(false);
+                        }
+                    }
+                    String result3 = (String) msg.obj;
+                    DFTTAdvResult dfttAdvResult = new Gson().fromJson(result3, DFTTAdvResult.class);
+                    int dd = 0;
+                    List<DFTTNewsResult.DataBean> data1 = dfttAdvResult.getData();
+
+
+                    /**
+                     * 遍历最外面的。然后在第几个位置停下来
+                     *  取第一个位置的数据放进来
+                     */
+                    if (data!=null){
+                        for (int i = 0; i < data.size(); i++) {
+                            if (i == 3 || i == 8 || i == 13 || i == 18) {
+                                if(data1.size()==0){
+                                    break;
+                                }
+
+                                if (i == 3 || i == 13) {
+                                    DFTTNewsResult.DataBean dataBean = data1.get(0);
+                                    dataBean.setBigpic("1");
+                                }
+                                data.remove(i);
+                                data.add(i, data1.get(0));
+                                data1.remove(0);
+                                continue;
+                            }
+
+                        }
+                    }
+
+
+                    fatherListDate.addAll(data);
+                    mHomeRecycleAdapter.notifyDataSetChanged();
+
+//                    if(fatherListDate==null){
+//                        fatherListDate = new ArrayList<>();
+//                    }
+//                    for (int i = 0; i < data1.size(); i++) {
+//                        fatherListDate.add(data1.get(i));
+//                    }
+//                    mHomeRecycleAdapter.setAdvDate(data1);
+
+                    mHomeRecycleAdapter.notifyDataSetChanged();
+
+
+                    break;
+            }
+        }
+    };
+    private List<DFTTNewsResult.DataBean> data;
+    private int pagesdssss = 1;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        contentView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_children, null);
+        Bundle arguments = getArguments();
+        isup = arguments.getString("isup");
+        type = arguments.getString("type");
+        name = arguments.getString("name");
+
+        return contentView;
+    }
+
+    public static HomeChildFragment newInstances(DFTTTitleResult.DdBean ddBean) {
+
+        HomeChildFragment homeChildFragment = new HomeChildFragment();
+        Bundle args = new Bundle();
+        args.putString("isup", ddBean.getIsup());
+        args.putString("type", ddBean.getType());
+        args.putString("name", ddBean.getName());
+        homeChildFragment.setArguments(args);
+        return homeChildFragment;
+    }
+
+    /**
+     * 显示对话框
+     */
+    public void showMyDialog() {
+        animDialog = new MyProgressDialog(getActivity(), "玩命加载中...", R.drawable.loading);
+        animDialog.show();
+        animDialog.setCancelable(true);
+        animDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+//                if (call.isExecuted()) {
+//                    call.cancel();
+//                }
+            }
+        });
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+//        showMyDialog();
+        mHomeHeadRecycleView = (RecyclerView) contentView.findViewById(R.id.home_recycleviewddd);
+        mHomeHeadSwiperefresh = (SwipeRefreshLayout) contentView.findViewById(R.id.home_swiperefreshlayout);
+        pagerNamber = 1;
+        requestListDate(pagerNamber, 20);
+        fatherListDate = new ArrayList<>();
+        isLogin = (boolean) SPUtils.get(UIUtils.getContext(), Constant.IS_LOGIN, false);
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mHomeHeadRecycleView.setLayoutManager(linearLayoutManager);
+
+
+        mHomeHeadSwiperefresh.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+
+
+        mHomeRecycleAdapter = new HomeChildFragmentRecycleAdapter(mMainUi, fatherListDate);
+        mHomeHeadRecycleView.setAdapter(mHomeRecycleAdapter);
+
+        //滑动的监听
+        mHomeHeadRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+
+                    if (linearLayoutManager.getItemCount() <= 1) {
+                        return;
+                    }
+                    if (lastVisiblePosition >= linearLayoutManager.getItemCount() - 1) {
+                        if (mHomeRecycleAdapter != null) {
+                            mHomeRecycleAdapter.showFootView();
+                        }
+
+                        pagerNamber++;
+                        requestListDate(pagerNamber, 20);
+
+                    }
+
+                }
+            }
+        });
+
+
+        //false： 没有登录， true : 登录了
+        mHomeRecycleAdapter.setOnItemClickListener(new MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                int itemViewType = mHomeRecycleAdapter.getItemViewType(postion);
+                if (itemViewType==mHomeRecycleAdapter.ITEM_TYPE_BIG_ADV||
+                        itemViewType==mHomeRecycleAdapter.ITEM_TYPE_ADV){
+
+                    Intent intent = new Intent(getActivity(),DFTTAdvActivity.class);
+                    intent.putExtra("url", fatherListDate.get(postion).getUrl());
+                    LogUtil.LogShitou("url:",fatherListDate.get(postion).getUrl().toString());
+
+                    intent.putExtra("isdownload",fatherListDate.get(postion).getIsdownload());
+                    intent.putExtra("isdsp",fatherListDate.get(postion).getIsdsp());
+                    intent.putExtra("reporturl",fatherListDate.get(postion).getReporturl());
+                    intent.putStringArrayListExtra("clickrep", (ArrayList<String>) fatherListDate.get(postion).getClickrep());
+                    intent.putStringArrayListExtra("showrep", (ArrayList<String>) fatherListDate.get(postion).getShowrep());
+                    intent.putExtra("position",fatherListDate.get(postion).getIdx());
+
+
+                    intent.putExtra("title",fatherListDate.get(postion).getTopic());
+                    intent.putExtra("type",type);
+                    startActivity(intent);
+                    return;
+                }
+
+                Intent intent = new Intent(getActivity(), DFTTNewsDetailActivity.class);
+                intent.putExtra("url", fatherListDate.get(postion).getUrl());
+                intent.putExtra("title", fatherListDate.get(postion).getTopic());
+                intent.putExtra("isVideo",fatherListDate.get(postion).getIsvideo());//1 是   0  不是
+                intent.putExtra("videolink",fatherListDate.get(postion).getVideo_link());
+                intent.putExtra("resource",fatherListDate.get(postion).getSource());
+                intent.putExtra("img",fatherListDate.get(postion).getMiniimg().get(0).getSrc());
+                intent.putExtra("type", type);
+                startActivity(intent);
+            }
+        });
+
+
+        mHomeHeadSwiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (mHomeRecycleAdapter != null) {
+                    fatherListDate.clear();
+                    mHomeRecycleAdapter.notifyDataSetChanged();
+                    requestListDate(1, -20);
+                }
+
+            }
+        });
+
+    }
+
+
+    private void requestListDate(final int page, int index) {
+        DFTTNewsApiService.getNewsListByType(type, page, index, new DfttApiServiceCallBack() {
+            @Override
+            public void onSuccess(String s) {
+
+                LogUtil.LogShitou("新闻数据：", s.toString());
+                Message msg = handler.obtainMessage();
+                msg.what = GET_HOME_LIST;
+                msg.obj = s;
+                pagesdssss = page;
+                handler.sendMessage(msg);
+
+            }
+
+
+            @Override
+            public void onError(String s, String s1, Response response, Exception e) {
+
+            }
+        });
+
+
+//        DFTTAdsApiService. getDspAdvertisements("list", type, null, page+"", new DfttApiServiceCallBack() {
+//            @Override
+//            public void onSuccess(String s) {
+//                LogUtil.LogShitou("DSP广告：",s.toString());
+//
+//            }
+//
+//            @Override
+//            public void onError(String s, String s1, Response response, Exception e) {
+//
+//            }
+//        });
+    }
+
+    public void requestAdvDate(int page) {
+        DFTTAdsApiService.getAdvertisement("list", type, null, page + "", new DfttApiServiceCallBack() {
+            @Override
+            public void onSuccess(String s) {
+                LogUtil.LogShitou("广告：", s.toString());
+                Message msg = handler.obtainMessage();
+                msg.what = GET_ADV;
+                msg.obj = s;
+                handler.sendMessage(msg);
+
+            }
+
+            @Override
+            public void onError(String s, String s1, Response response, Exception e) {
+
+            }
+        });
+
+    }
+
+}

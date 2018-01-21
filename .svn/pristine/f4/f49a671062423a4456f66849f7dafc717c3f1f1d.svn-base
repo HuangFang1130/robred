@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/px_0"
+    android:layout_margin="@dimen/px_5"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/home_content_iv_icon"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_330"
+            android:src="@mipmap/timg" />
+
+        <TextView
+            android:id="@+id/home_content_tv_name"
+            android:layout_marginTop="@dimen/px_20"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/px_text_28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_content_iv_icon"
+            android:layout_centerHorizontal="true"
+            android:text="@string/home_content_tv" />
+
+        <ProgressBar
+            android:layout_marginTop="@dimen/px_20"
+            android:id="@+id/home_content_pb"
+            style="@style/ProgressBar_Mini"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_content_tv_name"
+            android:layout_marginLeft="@dimen/px_10"
+            android:layout_marginRight="@dimen/px_10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:progress="20" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/px_20"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_content_pb"
+            android:layout_marginLeft="@dimen/px_10"
+            android:orientation="horizontal"
+            android:padding="@dimen/px_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_content_all"
+                android:textSize="@dimen/px_text_20"
+                android:textColor="@color/home_content_des" />
+
+            <TextView
+                android:id="@+id/home_content_tv_allnumber"
+                android:textSize="@dimen/px_text_22"
+                android:layout_marginLeft="@dimen/px_5"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/px_5"
+                android:layout_height="wrap_content"
+                android:text="@string/home_content_member_shuzi"
+                android:textColor="@color/home_content_member" />
+
+            <TextView
+                android:textSize="@dimen/px_text_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_content_member"
+                android:textColor="@color/home_content_des" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/px_10"
+            android:layout_marginBottom="@dimen/px_20"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_content_pb"
+            android:orientation="horizontal"
+            android:padding="@dimen/px_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_content_surplus"
+                android:textSize="@dimen/px_text_20"
+                android:textColor="@color/home_content_des" />
+
+            <TextView
+                android:id="@+id/home_content_tv_residuenumber"
+                android:textSize="@dimen/px_text_22"
+                android:layout_marginLeft="@dimen/px_5"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/px_5"
+                android:layout_height="wrap_content"
+                android:text="@string/home_content_member_shuzi"
+                android:textColor="@color/home_content_member" />
+
+            <TextView
+                android:textSize="@dimen/px_text_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_content_member"
+                android:textColor="@color/home_content_des" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+</LinearLayout>
